@@ -1,0 +1,1397 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <title>Private Guide</title>
+  <link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+  <link href="css/myicon.css" rel="stylesheet" type="text/css"/>
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+  <script src="js/cordova.js" type="text/javascript"></script>
+  <script src="js/plugins/childbrowser.js" type="text/javascript"></script>
+  <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="jqmobile/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+  <script src="js/travelUtil.js" type="text/javascript"></script>
+  <script src="js/otherUtil.js" type="text/javascript"></script>
+  <script src="js/loadingDiv.js" type="text/javascript"></script>
+  <script src="js/commonUtil.js" type="text/javascript"></script>
+  <script src="js/otherLink.js" type="text/javascript"></script>
+  <script src="js/callTrustWebService.js" type="text/javascript"></script>
+  <script src="js/callTravelWebService.js" type="text/javascript"></script>
+  <script src="js/shoppingcart.js" type="text/javascript"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="onPageload()">
+	<!-- 可信备案相关div -->
+		<div data-role="page" id="productListFromTrust" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>可信平台备案产品列表</h1>
+  			</div>
+  			<div data-role="content" class="container">
+    			
+  			</div>
+		</div>
+		
+<!-- 产品票种列表页面 -->
+		<div data-role="page" id="productPriceDim" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>选择产品票种</h1>
+  			</div>
+  			<div class="welcome">您可以选择以下票种</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+    
+  			</div>
+  			<a href="javascript:void(0);" class="commit" data-role="button" data-theme="b">下一步</a>
+		</div>
+<!-- 订单支付页面 -->
+		<div data-role="page" id="page_pay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>订单支付</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+  			<a href="#" data-role="button" class="paySubmit" data-theme="b">确认</a>
+		</div>
+		
+		<div data-role="page" id="page_pay_okay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<h1>完成交易</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+		</div>
+		
+<!-- 账户信息页面 -->
+		<div data-role="page" id="customer_information" data-close-btn="right" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>账户信息</h1>
+  			</div>
+  			<div data-role="content" style="padding:10px 10px;">
+       			<label>个性签名</label>
+          		<input name="travel_msg_input" id="travel_msg_input" data-mini="true" data-highlight="true" type="text">
+       			<a href="#" onclick="javascript:updateMsg();" data-role="button" data-theme="b">更新</a>
+  			</div>
+   			<div data-role="content" class="container" style="padding:10px 10px;">
+       
+  			</div>
+  			<a href="#" onclick="javascript:alert('修改成功！');" data-role="button" data-theme="b">确认修改</a>
+		</div>
+
+<!-- 服务申请审核页面 -->
+<div data-role="page" id="company_service_audit_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>服务许可审核详情</h1>
+  </div>
+   <div data-role="content" class="container">
+	</div>
+	  <div class="operatorDiv">
+	  	  <a href="#" class="agreeButton" data-role="button" data-theme="b">同意</a>
+	  	  拒绝原因：<a href="#" class="disagreeButton">拒绝</a><input type="text" class="reason">
+	  </div>
+</div>
+<!-- 集散中心发布套票页面 -->
+<div data-role="page" id="hub_publish_service" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>申请组合服务</h1>
+    <a href="#" class="publish" data-icon="arrow-r" data-iconpos="right" data-theme="b">发布旅游套票</a>
+  </div>
+   <div data-role="content" class="container">
+  </div>
+</div>
+<div data-role="page" id="hub_publish_service_second_step" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>旅游套票发布</h1>
+  </div>
+   <div data-role="content" class="container">
+		
+   </div>
+   <a href="#" class="publish" data-role="button" data-theme="b">确认提交</a>
+</div>
+
+<!-- 旅游套票详情页面 -->
+<div data-role="page" id="hub_publish_service_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>旅游套票详情</h1>
+  </div>
+   <div data-role="content" class="container">
+   </div>
+   <a href="#" class="publishAndRecord" data-role="button" data-theme="b">发布并在可信平台备案</a>
+</div>
+
+<!-- 经营商发布服务许可申请页面 -->
+<div data-role="page" id="hub_service_apply" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>服务组合许可申请</h1>
+  </div>
+   <div data-role="content" class="container">
+  </div>
+  <a href="#" data-role="button" class="applyButton" data-theme="b">申请许可</a>
+</div>
+
+<!-- 私人导游首页 -->
+	<div data-role="page" id="customer_search_service" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    		<h1>游客</h1>
+			<a href="#page_lv_search_pre" data-icon="search" data-theme="b">搜索</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+         	 			<a href="#customer_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自由点餐</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(487, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">旅游套票</a>
+        			</li>
+        			<li>
+          				<a href="#customer_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c">
+   			<div class="select-links">
+      			<a href="#" onClick="setCategoryId(4);" data-role="button" data-inline="true">+景点</a>
+      			<a href="#" onClick="setCategoryId(7);" data-role="button" data-inline="true">+交通</a>
+      			<a href="#" onClick="setCategoryId(6);" data-role="button" data-inline="true">+住宿</a>
+      			<a href="#" onClick="setCategoryId(2);" data-role="button" data-inline="true">+导游</a>
+	  			<input type="hidden" class="categoryId" value="4"></input>
+    		</div>
+    		<div>
+    			<table class="searchTable">
+      				<tr>
+      					<td width="30%;">
+      						<span class="searchCategoryName">景点查询：</span>
+      					<td>
+      					<td>
+      						<input type="text" class="searchKeyWord" placeholder="输入关键字"></input>
+      					</td>
+      				</tr>
+      				<tr style="display:none;" class="price">
+      					<td width="30%;">
+      						<span>最高价格：</span>
+      					<td>
+      					<td>
+      						<input type="number" class="searchPrice" placeholder="输入价格上限"></input>
+      					</td>
+      				</tr>
+      			</table>
+    		</div>
+    		<a href="#" onclick="startSearchProducts();" data-role="button" data-theme="b">搜索</a>
+    		<div style="display:none;">
+    			热门推荐
+    			<table>	
+    			</table>
+    		</div>
+  		</div>
+  		<!--添加下方选项卡-->
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data ui-btn-active ui-state-persist">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 我的行程单页面 -->
+	<div data-role="page" id="customer_my_itinerary" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>游客</h1>
+    		<a href="javascript:clearItinerary();" data-icon="delete" data-theme="b">清空行程单</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自由点餐</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(487, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">旅游套票</a>
+        			</li>
+        			<li>
+          				<a href="#customer_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c" style="text-align:center" class="container">
+  			<div class="tipDiv" style="display:none;">
+  				<span>您的行程单空空如也，快去</span>
+  				<a href='#customer_search_service'>自由点餐</a>
+  				<span>吧!</span>
+  			</div>
+  			
+  			<div class="contentDiv">
+    			
+			</div>
+			<span class="totalSpan">费用合计： <span class="totalMoney"></span>元</span>
+			<a href="javascript:submitOrder();" class="submitOrder" data-role="button" data-theme="b">确认下单</a>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+       	 			<li>
+          				<a href="#customer_search_service" class="customer_data ui-btn-active ui-state-persist">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 游客更多操作页面 -->
+	<div data-role="page" id="customer_more_operation" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>游客</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自由点餐</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(487, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">旅游套票</a>
+        			</li>
+        			<li>
+          				<a href="#customer_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content">
+			<div data-theme="c">
+      			<ul data-role="listview"  data-inset="true">
+      				<li>
+          				<a href="javascript:openItinerary();">
+            				<img src="assets/img/itinerary.jpg">    
+            				<h2>我的行程单</h2>
+            				<p>我的行程单包含您的已选服务信息。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:getOrders();">
+            				<img src="assets/img/dianzibingli.png">    
+            				<h2>我的订单</h2>
+            				<p>您可以在此处查看您的订单信息。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:loadPersonalizeData();">
+            				<img src="assets/img/travel_personalize.png">    
+            				<h2>个性化</h2>
+            				<p>同步您的个人信息以获得更精准的搜索体验。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:loadAccountInfo();">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>账户信息</h2>
+           	 				<p>展示您的账号余额、积分等信息。</p>
+          				</a>
+        			</li>
+         			<li>
+          				<a href="javascript:alert('调用微信服务');">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>客商互动</h2>
+            				<p>您可以与商家直接交流。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchRandomProduct();">
+            				<img src="assets/img/biaojiwu.png">    
+            				<h2>人云互找</h2>
+            				<p>基于灵魂模型的云服务自我推荐。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data ui-btn-active ui-state-persist">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+
+<!-- 旅游服务列表页面（查询结果） -->
+	<div data-role="page" id="page_travel_service_list_for_search" style="overflow-x:hidden;overflow-y:auto;">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>旅游服务列表</h1>
+    		<a href="#page_lv_search_pre" data-icon="search" data-theme="b">搜索</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#customer_search_service" id="customer_search_for_search" class="customer_search_service" data-icon="custom" data-theme="c">自由点餐</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(487, '', '', 1, 10);" id="products_search_for_route" class="customer_my_itinerary" data-icon="custom" data-theme="c">旅游套票</a>
+        			</li>
+        			<li>
+          				<a href="#customer_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+	</div>
+
+<!-- 加入行程单页面 -->
+	<div data-role="page" id="page_travel_service_buy">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>加入行程单</h1>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+  		<a href="javascript:void(0);" data-role="button" data-theme="b" class="addToItinerary">加入行程单</a>
+	</div>
+
+<!-- 游客订单列表 -->
+	<div data-role="page" id="customer_order_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>我的订单</h1>
+  		</div>
+   		<div data-role="content" style="padding:10px 10px;">
+			<table>
+				<tr style="display:none;">
+					<th>服务名称：</th>
+					<td>
+						<input id="customer_order_service_name" name="customer_order_service_name" placeholder="输入关键字查询" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>起始日期：</th>
+					<td>
+						<input id="customer_order_confrim_from_date" name="customer_order_confrim_from_date" type="date">
+					</td>
+				</tr>
+            	<tr>
+					<th>终止日期：</th>
+					<td>
+						<input id="customer_order_confrim_to_date" name="customer_order_confrim_from_date" type="date">
+					</td>
+				</tr>
+				<tr>
+					<th>订单状态：</th>
+					<td>
+						<select name="customer_order_state" data-role="select" data-inline="true" data-native-menu="true">
+                        	<option value="-1">全部</option>
+							<option value="0">未支付</option>
+							<option value="1">已支付</option>
+							<option value="2">已完成</option>
+							<option value="3">未完成</option>
+						</select>
+						&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+					</td>
+				</tr>
+				<tr style="text-align: center;display:none;" class="demo_tr">
+					<td><span class="createdDate"></span></td>
+					<td><span class="status"></span></td>
+					<td><span class="totalPrice"></span></td>
+					<td>
+						<a href="javascript:void(0);" class="openDetail">查看详情</a>
+					</td>
+				</tr>
+			</table>
+       		<table class="tb_list">
+				<thead>
+					<tr>
+						<th style="width:30%">下单日期</th>
+						<th style="width:20%">订单状态</th>
+						<th style="width:20%">总费用</th>
+						<th style="width:30%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tb_list_tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data ui-btn-active ui-state-persist">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 游客订单详情页 -->
+	<div data-role="page" id="customer_order_detail" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>订单详情</h1>
+ 	 	</div>
+   		<div data-role="content" class="container">
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data" data-icon="custom" data-theme="c">供应商</a>
+        			</li>
+       				<li>
+          				<a href="#hub_data" class="agent_data" data-icon="custom" data-theme="c">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 供应商订单查询页面 -->
+	<div data-role="page" id="company_data" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    		<h1>供应商</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#company_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+         			<li>
+          				<a href="javascript:clearPublishedProductCode();" class="doctor_patient_comunication" data-icon="custom" data-theme="c">客商互动</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+ 		<div data-role="content" style="padding-left:10px;">
+			<div>
+				<table style="width:100%">
+					<tbody>
+						<tr>
+							<th>
+								产品名称：
+							</th>
+							<td>
+								<input class="productName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								票种名称：
+							</th>
+							<td>
+								<input class="itemName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								起始日期：
+							</th>
+							<td>
+								<input class="company_order_fromDate" type="date">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								终止日期：
+							</th>
+							<td>
+								<input class="company_order_toDate" type="date">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<a href="javascript:getOrderItemList();" data-role="button" data-theme="b">检索订单</a>
+			</div>
+  		</div>  
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 供应商许可申请审核列表 -->
+	<div data-role="page" id="company_service_audit_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>许可申请列表</h1>
+  		</div>
+   		<div data-role="content" style="padding:10px 10px;">
+			<table>
+				<tr>
+					<th>服务名称：</th>
+					<td>
+						<input class="serviceName" placeholder="支持模糊查询" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>申请企业：</th>
+					<td>
+						<input class="applyName" type="date">
+					</td>
+				</tr>
+				<tr>
+					<th>起始日期：</th>
+					<td>
+						<input class="applyDate" type="date">
+					</td>
+				</tr>
+			</table>
+        	<table class="tb_list">
+				<thead>
+					<tr>
+						<th style="width:30%">服务名称</th>
+						<th style="width:25%">申请人</th>
+						<th style="width:20%">申请日期</th>
+						<th style="width:15%">状态</th>
+						<th style="width:10%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 客商互动页面 -->
+	<div data-role="page" id="company_customer_comunication" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>客商互动</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+       			<ul>
+        			<li>
+          				<a href="#company_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_customer_comunication" class="doctor_patient_comunication ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">客商互动</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+   		<div data-role="content">
+    		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/customer1.jpg">
+          				<h2>张三</h2>
+          				<p>服务：东方明珠</p>
+        			</a>
+        			<a href="#company_toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/customer4.jpg">
+          				<h2>李丝</h2>
+          				<p>服务：长兴动物园</p>
+        			</a>
+        			<a href="#company_toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/customer2.jpg">
+          				<h2>李强</h2>
+          				<p>服务：上海科技馆</p>
+        			</a>
+        			<a href="#company_toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/customer3.jpg">
+          				<h2>王星</h2>
+          				<p>服务：上海杜莎夫人蜡像馆</p>
+        			</a>
+        			<a href="#company_toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+    		</ul>
+    		<div data-role="popup" id="company_toAnswer" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+      			<h3>启用微信交流?</h3>
+      			<p>将调用微信服务进行交流。请点击确认开始回复。</p>
+      			<div class="ui-grid-a" style="text-align:center">
+        			<div class="ui-block-a">
+          				<a href="#company_customer_communication" data-role="button" data-theme="b" data-icon="check" data-inline="true" data-mini="true">确认</a>
+        			</div>
+        			<div class="ui-block-b">
+          				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 供应商服务管理 -->
+	<div data-role="page" id="company_service_manager" data-close-btn="right" data-overlay-theme="e">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>供应商</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#company_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_service_manager" class="doctor_service_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_customer_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">客商互动</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+		<div data-role="content">
+			<div data-theme="c">
+      			<ul data-role="listview"  data-inset="true">
+        			<li>
+          				<a href="javascript:getProductsByProductNameAndComNameWithJson()">
+            				<img src="assets/img/dianzibingli.png">    
+            				<h2>发布旅游服务</h2>
+            				<p>您可以发布旅游服务供游客查询。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:openPublishedProduct();">
+            				<img src="assets/img/biaojiwu.png">    
+            				<h2>旅游服务列表</h2>
+            				<p>展示您已发布的旅游服务。</p>
+          				</a>
+        			</li>
+       				<li>
+          				<a href="javascript:openAuditList();">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>服务许可确认</h2>
+            				<p>您可以对您被申请的服务进行确认。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 供应商已发布服务列表 -->
+	<div data-role="page" id="company_service_list">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+			<a href="#" data-icon="back" data-rel="back">返回</a>
+			<h1>旅游服务列表</h1>
+		</div>
+		<div data-role="content" class="container">
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+   		</div>
+	</div>
+
+<!-- 供应商发布服务 -->
+	<div data-role="page" id="company_publish_service">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+			<a href="#" data-icon="back" data-rel="back">返回</a>
+			<h1>旅游服务发布</h1>
+			<a href="#company_service_manager" data-icon="info" data-theme="b">服务管理</a>
+		</div>
+		<div data-role="content" class="container">
+			<div style="margin-top:5px;">
+				<table>
+					<tr>
+						<td><input type="search" class="keyword"></input></td>
+						<td><a href="javascript:searchProductFromTrust();" style="padding-left:10px;">搜索</a></td>
+					</tr>
+				</table>
+			</div>
+			<div class="table_container">
+			</div>
+  		</div>  
+	</div>
+
+<!-- 供应商订单列表 -->
+	<div data-role="page" id="company_order_list">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>订单列表</h1>
+ 			<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#company_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+        			<li>
+          				<a href="#company_customer_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">客商互动</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+		<div data-role="content">
+			<table class="tb_list" class="display:none;">
+				<tbody>
+					<tr style="text-align: center;display:none;" class="tr_demo">
+						<td><span class="createdDate"></span></td>
+						<td><span class="productName"></span></td>	
+						<td><span class="itemName"></span></td>
+						<td><span class="price"></span></td>
+						<td><span class="openLink">确认订单<span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div style="padding:10px 10px 10px 10px;">
+				<table class="tb_list">
+					<thead>
+						<tr>
+							<th style="width:20%">使用时间</th>
+							<th style="width:25%">服务名称</th>
+							<th style="width:25%">票种名称</th>
+							<th style="width:12%">费用</th>
+							<th style="width:18%">操作</th>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+				
+					</tbody>
+				</table>
+			</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>	
+        			<li>
+          				<a href="#company_data" class="doctor_data ui-btn-active ui-state-persist">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data">集散中心</a>
+       	 			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+	
+<!-- 游客供应商交流页面 -->
+	<div data-role="page" id="company_customer_communication">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>回复咨询</h1>
+  		</div>
+  		<div data-role="content">
+    		<div class="jilu">
+      			<div class="left">
+        			<div class="gd">
+          				<div class="ys">
+            				<div class="zuo">
+              					<div class="you">
+              						<div class="l1">2013-8-7 下午3:25</div>
+              						<div class="l2">您好，我打算购买贵公司的东方绿舟门票，想向您咨询一下。</div>
+            					</div>
+            				</div>
+            				<div class="you">
+              					<img src="assets/img/info-act.png"  />
+            				</div>
+            				<div style="clear:both;"></div>
+          				</div>
+          				<div class="ys1">
+            			<div class="zuo">
+              				<img src="assets/img/info-act.png"  />
+            			</div>
+            			<div class="you">
+              				<div class="l1">2013-8-7 下午3:26</div>
+              				<div class="l2">那请问您想问些什么呢？</div>
+            			</div>
+            			<div style="clear:both;"></div>
+          			</div>
+          			<div class="ys">
+            			<div class="zuo">
+               				<div class="l1">2013-8-7 下午3:29</div>
+              				<div class="l2">我打算本周末去东方绿舟游玩，请问有票吗？</div>
+            			</div>
+           	 			<div class="you">
+              				<img src="assets/img/info-act.png"  />
+            			</div>
+            			<div style="clear:both;"></div>
+          			</div>
+          			<div class="ys1">
+            			<div class="zuo">
+              				<img src="assets/img/info-act.png"  />
+            			</div>
+            			<div class="you">
+              				<div class="l1">2013-8-7 下午3:33</div>
+              				<div class="l2">您好，你可以在网站或手机上查看到剩余票信息，那个就是参考依据。</div>
+            			</div>
+            			<div style="clear:both;"></div>
+          			</div>
+          			<div class="ys">
+            			<div class="zuo">
+              				<div class="l1">2013-8-7 下午3:33</div>
+              				<div class="l2">好的，谢谢您回答。</div>
+            			</div>
+            			<div class="you">
+              				<img src="assets/img/info-act.png"  />
+            			</div>
+            			<div style="clear:both;"></div>
+          			</div>
+        		</div>
+      		</div>
+      		<div style="float:right">
+        		<textarea cols="40" rows="3" name="textarea"  placeholder="请输入回复信息" data-inline="true"></textarea>
+      		</div>
+      		<div style="float:right">
+        		<a href="#" data-role="button" data-theme="b" data-inline="true" data-mini="true">发送</a>
+      		</div>
+    	</div>
+  		</div>
+	</div>
+
+<!-- 集散中心首页 -->
+	<div data-role="page" id="hub_data" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home" >彩云阁首页</a>
+    		<h1>集散中心</h1>
+  		</div>
+ 		<div data-role="content">
+		 	<div data-theme="c">
+				<ul data-role="listview"  data-inset="true">
+					<li>
+						<a href="javascript:displayProductFromTrustForHub();">
+							<img src="assets/img/biaojiwu.png">    
+							<h2>申请组合服务</h2>
+							<p>您可以组合多种旅游服务形成服务套餐。</p>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:openPackageList();">
+							<img src="assets/img/saomiaoluru.png">    
+							<h2>组合服务列表</h2>
+							<p>展示您已发布的组合旅游服务。</p>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:getOrderItemList();">
+							<img src="assets/img/dianzibingli.png">    
+							<h2>订单管理</h2>
+							<p>展示并管理用户的订单。</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+ 	 	</div>  
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data ui-btn-active ui-state-persist">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 集散中心服务许可申请页面 -->
+	<div data-role="page" id="hub_service_apply" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>服务组合许可申请</h1>
+  		</div>
+   		<div data-role="content" class="container" style="padding:10px 10px;">
+  		</div>
+  		<a href="#" data-role="button" class="applyButton" data-theme="b">申请许可</a>
+	</div>
+
+<!-- 集散中心旅游套餐服务列表 -->
+	<div data-role="page" id="hub_service_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>组合服务列表</h1>
+  		</div>
+   		<div data-role="content">
+			<table class="table_demo" style="padding:10px 10px;">
+				<tr>
+					<th>服务名称：</th>
+					<td>
+						<input class="hub_publishServiceName" placeholder="支持模糊查询" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>发布日期：</th>
+					<td>
+						<input class="hub_publishTime" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>服务状态：</th>
+					<td>
+						<select class="hub_service_state" data-role="select" data-inline="true" data-native-menu="true">
+							<option value="0">未申请</option>
+							<option value="1">正在审核</option>
+							<option value="2">通过审核</option>
+							<option value="3">已发布</option>
+						</select>
+						&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+					</td>
+				</tr>
+				<tr style="text-align: center;display:none;" class="tr_demo">
+					<td class="productName"></td>
+					<td class="publishDate"></td>
+					<td class="productState"></td>
+					<td><a href="#" class="openDetail" style="color:#08C;">查看</a></td>
+				</tr>
+			</table>
+			<table class="tb_list tb_productList" style="display:none;" style="padding:10px 10px;">
+				<thead>
+					<tr>
+						<th style="width:40%">套票名称</th>
+						<th style="width:25%">发布日期</th>
+						<th style="width:20%">状态</th>
+						<th style="width:15%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_data">游客</a>
+        			</li>
+        			<li>
+          				<a href="#company_data" class="doctor_data">供应商</a>
+        			</li>
+        			<li>
+          				<a href="#hub_data" class="agent_data ui-btn-active ui-state-persist">集散中心</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 推荐服务列表，用于之前周丰推荐系统 -->
+	<div data-role="page" id="page_travel_service_list" style="overflow-x:hidden;overflow-y:auto;">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>推荐服务列表</h1>
+    		<a href="#page_lv_search_pre" data-icon="search" data-theme="b">搜索</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#customer_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自由点餐</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(487, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">旅游套票</a>
+        			</li>
+        			<li>
+          				<a href="#customer_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+	</div>
+	
+	<div data-role="page" id="page_travel_service_detail">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>旅游服务详情</h1>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+	</div>
+	
+	<div data-role="page" id="page_lv_search_pre">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>搜索条件</h1>
+  		</div>
+  		<div data-role="content">
+    		<form action="#" method="get">
+    			<table>
+    				<tr>
+    					<td>
+　 							<label for="travel_service_type">服务类型:</label>
+						</td>
+						<td>
+　 							<select name="travel_service_type" id="travel_service_type">
+　　 							<option value="景点">景点门票</option>
+　　 							<option value="住宿">住宿服务</option>
+　　 							<option value="交通">交通服务</option>
+　　 							<option value="导游">导游服务</option>
+								<option value="其他">其他服务</option>
+　 							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="travel_start_location">
+          						出发地:
+          						<a href="javascript:searchOnMap();">
+            						<img src="assets/img/location.gif" height="18" width="18"/>
+          						</a>
+        					</label>
+						</td>
+						<td>
+							<input placeholder="Where are you going to start?" type="text" name="travel_start_location" id="travel_start_location" value="杭州市" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="travel_end_location">
+          						目的地:
+          						<a href="javascript:searchOnMap();">
+            						<img  src="assets/img/location.gif" height="18" width="18"/>
+          						</a>
+        					</label>
+						</td>
+						<td>
+							<input placeholder="What is your destination?" type="text" name="travel_end_location" id="travel_end_location" value="上海市" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="travel_start_time">出发时间:</label>
+						</td>
+						<td>
+							<input type="date" userType="date" name="travel_start_time" id="travel_start_time" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="travel_end_time">返回时间:</label>
+						</td>
+						<td>
+							<input type="date" userType="date" name="travel_end_time" id="travel_end_time" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label for="travel_budget">预算(元):</label>
+						</td>
+						<td>
+							<input type="number" name="travel_budget" id="travel_budget" value="1000" step="50" />
+						</td>
+					</tr>
+				</table>
+      			<a href="javascript:startArrangement();" data-role="button" data-theme="b">马上搜索</a>
+    		</form>
+  		</div>
+	</div>
+	
+<!-- 个性化数据展示页面 -->
+<div data-role="page" id="basic_travel_data" data-close-btn="right" data-overlay-theme="e" >
+    <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+        <a href="#" data-icon="back" data-rel="back">返回</a>
+        <h1>个性化设置</h1>
+        <div class="ui-grid-b" style="text-align:center">
+            <div class="ui-block-a">
+                <!-- <a href="#page_lv_travel_select" data-role="button" data-theme="a" data-icon="refresh" data-inline="true" data-mini="true"  onclick="refreshdata()">刷新</a> -->
+            </div>
+            <div class="ui-block-b">
+                <button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" onclick="refreshData();Toast('数据已更新',3000)">系统导入</button>
+            </div>
+            <div class="ui-block-c">
+            	<button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" onclick="modifyData()">手动输入</button>
+            </div>
+        </div>
+    </div>
+    <div data-role="content" data-theme="c">
+        <div class="ui-grid-b" style="text-align:center;margin-bottom:15px;">
+            <div class="ui-block-a" >
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_gender.png" alt="性别" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_age.png" alt="年龄" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_salary.png" alt="收入水平" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+                	<strong>性别</strong><br/><span id="travel_data_gender"></span>
+            </div>
+            <div class="ui-block-b">
+                	<strong>年龄</strong><br/><span id="travel_data_age"></span>
+            </div>
+            <div class="ui-block-c">
+                	<strong>收入水平</strong><br/><span id="travel_data_salary"></span>
+            </div>
+        </div>
+        <div class="ui-grid-b" style="text-align:center;margin-bottom:15px;">
+            <div class="ui-block-a" >
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_hobby.png" alt="兴趣" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_mood.png" alt="心情" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_history.png" alt="足迹" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+                	<strong>兴趣</strong><br/><span id="travel_data_hobby"></span>
+            </div>
+            <div class="ui-block-b">
+                	<strong>心情</strong><br/><span id="travel_data_mood"></span>
+            </div>
+            <div class="ui-block-c">
+                	<strong>足迹</strong><br/><span id="travel_data_history"></span>
+            </div>
+		</div>
+         <div class="ui-grid-b" style="text-align:center;margin-bottom:15px;">
+         	<div class="ui-block-a" >
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_health.png" alt="健康问题" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_stamina.png" alt="身体素质" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/travel_data_illness.png" alt="病史与过敏史" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+                	<strong>健康问题</strong><br/><span id="travel_data_health"></span>
+            </div>
+            <div class="ui-block-b">
+                	<strong>身体素质</strong><br/><span id="travel_data_stamina"></span>
+            </div>
+            <div class="ui-block-c">
+                	<strong>病史与过敏史</strong><br/><span id="travel_data_illness"></span>
+            </div>
+         </div>
+        </div>
+</div>
+<!-- 个性化数据输入页面 -->
+<div data-role="page" id="travel_data_user_input" data-close-btn="right" data-overlay-theme="e">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+    	<h1>个性化设置</h1>
+    	<a href="#save_travel_data" data-icon="info"  data-rel="popup" data-position-to="window" data-transition="pop" data-theme="b">保存</a>
+	</div>
+	<div data-role="content" data-theme="c">
+    	<div data-role="collapsible-set" data-content-theme="c">
+  			<div data-role="collapsible" data-collapsed="false" data-theme="c" data-content-theme="d">
+    			<h4>修改数据</h4>
+    			<div>
+      				<form>
+        				<div data-role="fieldcontain">
+          					<label>性别</label>
+          					<label>&nbsp;&nbsp;</label>
+	            			<select name="travel_gender_input" id="travel_gender_input">
+	              				<option value="">请选择</option>
+	              				<option value="1">男</option>
+	             				<option value="2">女</option>
+	            			</select>
+          				</div>
+        				<div data-role="fieldcontain">
+          					<label for="travel_age_input">年龄</label>
+          					<input name="travel_age_input" id="travel_age_input" data-mini="true" data-highlight="true" min="1" max="100" step="1" value="25" type="range">
+          				</div>
+        				<div data-role="fieldcontain">
+          					<label>收入水平</label>
+          					<label>&nbsp;&nbsp;</label>
+          					<select name="travel_salary_input" id="travel_salary_input">
+	              				<option value="">请选择</option>
+	              				<option value="1">高水平</option>
+	             				<option value="2">中等水平</option>
+	             				<option value="3">低水平</option>
+	            			</select>
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label for="travel_hobby_input">兴趣</label>
+          					<input name="travel_hobby_input" id="travel_hobby_input" data-mini="true" data-highlight="true" type="text">
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label>心情</label>
+          					<label>&nbsp;&nbsp;</label>
+          					<select name="travel_mood_input" id="travel_mood_input">
+	              				<option value="">请选择</option>
+	              				<option value="1">:-)</option>
+	             				<option value="2">:-|</option>
+	             				<option value="3">:-(</option>
+	            			</select>
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label for="travel_history_input">足迹</label>
+          					<input name="travel_history_input" id="travel_history_input" data-mini="true" data-highlight="true" type="text">
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label>健康问题</label>
+          					<input name="travel_health_input" id="travel_health_input" data-mini="true" data-highlight="true" type="text">
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label>身体素质</label>
+          					<label>&nbsp;&nbsp;</label>
+          					<select name="travel_stamina_input" id="travel_stamina_input">
+	              				<option value="">请选择</option>
+	              				<option value="1">非常好</option>
+	             				<option value="2">正常</option>
+	             				<option value="3">较差</option>
+	            			</select>
+          				</div>
+          				<div data-role="fieldcontain">
+          					<label for="travel_illness_input">病史与过敏史</label>
+          					<input name="travel_illness_input" id="travel_illness_input" data-mini="true" data-highlight="true" type="text">
+          				</div>
+      				</form>
+    			</div>
+  			</div>
+		</div>
+		<div data-role="popup" id="save_travel_data" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+	    	<h3>是否要保存个性化数据?</h3>
+	    	<div class="ui-grid-a" style="text-align:center">
+	    		<div class="ui-block-a">
+	    			<a href="#basic_travel_data" data-role="button" data-theme="b"  data-icon="check" data-inline="true" data-mini="true" onclick="javascript:saveData();">确认</a>
+	       		</div>
+	        	<div class="ui-block-b">
+	        		<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+	        	</div>
+	      	</div>
+	    </div>
+	</div>
+</div>
+<!-- 编辑对话框 -->
+<div id="page_edit_property" data-role="dialog" data-theme="c">
+  	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+   		<a href="#" data-icon="back" data-rel="back">返回</a>
+ 		<h1 class="title"></h1>
+	</div>
+	<div data-role="content" data-theme="c">
+ 		<input type="text" class="value" />
+  		<span class="description"></span>
+  		<a href="#" data-role="button" class="save" data-theme="b">保存</a>
+	</div>
+</div>
+
+</body>
+</html>

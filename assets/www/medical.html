@@ -1,0 +1,1662 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <title>Cloud Medical</title>
+  <link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+  <link href="css/myicon.css" rel="stylesheet" type="text/css"/>
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+  <script src="js/cordova.js" type="text/javascript"></script>
+  <script src="js/plugins/childbrowser.js" type="text/javascript"></script>
+  <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="jqmobile/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+  <script src="js/otherUtil.js" type="text/javascript"></script>
+  <script src="js/loadingDiv.js" type="text/javascript"></script>
+  <script src="js/commonUtil.js" type="text/javascript"></script>
+  <script src="js/otherLink.js" type="text/javascript"></script>
+  <script src="js/callTrustWebService.js" type="text/javascript"></script>
+  <script src="js/medicalUtil.js" type="text/javascript"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="onPageload()">
+<!-- 可信备案相关div -->
+	<div data-role="page" id="productListFromTrust" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>可信平台备案产品列表</h1>
+  		</div>
+  		<div data-role="content" class="container">	
+  		</div>
+	</div>
+		
+<!-- 产品票种列表页面 -->
+	<div data-role="page" id="productPriceDim" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>选择产品类型</h1>
+  		</div>
+  		<div class="welcome">您可以选择以下类型</div>
+  		<div data-role="content" class="container" style="text-align:center;">
+  		</div>
+  		<a href="javascript:void(0);" class="commit" data-role="button" data-theme="b">下一步</a>
+	</div>
+<!-- 订单支付页面 -->
+	<div data-role="page" id="page_pay">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>订单支付</h1>
+  		</div>
+  		<div data-role="content" class="container" style="text-align:center;">
+  		</div>
+  		<a href="#" data-role="button" class="paySubmit" data-theme="b">确认</a>
+	</div>
+	
+	<div data-role="page" id="page_pay_okay">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<h1>完成交易</h1>
+  		</div>
+  		<div data-role="content" class="container" style="text-align:center;">
+  		</div>
+	</div>
+		
+<!-- 账户信息页面 -->
+	<div data-role="page" id="customer_information" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>账户信息</h1>
+  		</div>
+   		<div data-role="content" class="container">
+  		</div>
+  		<a href="#" onclick="javascript:alert('修改成功！');" data-role="button" data-theme="b">确认修改</a>
+	</div>
+
+<!-- 服务申请审核页面 -->
+	<div data-role="page" id="doctor_service_audit_detail" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>服务许可审核详情</h1>
+  		</div>
+   		<div data-role="content" class="container">
+		</div>
+	  	<div class="operatorDiv">
+	  		<a href="#" class="agreeButton" data-role="button" data-theme="b">同意</a>
+	  	  	拒绝原因：<a href="#" class="disagreeButton">拒绝</a><input type="text" class="reason">
+	  	</div>
+	</div>
+<!-- 医院发布套票页面 -->
+	<div data-role="page" id="agent_publish_service" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>申请组合医疗套餐</h1>
+    		<a href="#" class="publish" data-icon="arrow-r" data-iconpos="right" data-theme="b">发布</a>
+  		</div>
+   		<div data-role="content" class="container">
+  		</div>
+	</div>
+	<div data-role="page" id="agent_publish_service_second_step" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医疗套餐发布</h1>
+  		</div>
+   		<div data-role="content" class="container">	
+   		</div>
+   		<a href="#" class="publish" data-role="button" data-theme="b">确认提交</a>
+	</div>
+
+<!-- 医疗套餐详情页面 -->
+	<div data-role="page" id="agent_publish_service_detail" data-close-btn="right" data-overlay-theme="e">
+ 		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医疗套餐详情</h1>
+  		</div>
+   		<div data-role="content" class="container">
+   		</div>
+   		<a href="#" class="publishAndRecord" data-role="button" data-theme="b">发布并在可信平台备案</a>
+	</div>
+
+<!-- 经营商发布服务许可申请页面 -->
+	<div data-role="page" id="agent_service_apply" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医疗组合许可申请</h1>
+  		</div>
+   		<div data-role="content" class="container">
+  		</div>
+  		<a href="#" data-role="button" class="applyButton" data-theme="b">申请许可</a>
+	</div>
+
+<!-- 求医问药首页 -->
+	<div data-role="page" id="patient_search_service" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    		<h1>求医问药</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#patient_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选医疗</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(484,'','');" class="customer_my_itinerary" data-icon="custom" data-theme="c">医疗套餐</a>
+        			</li>
+        			<li>
+          				<a href="#patient_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c">
+   			<div class="select-links">
+      			<a href="#" onClick="setCategoryId(1);" data-role="button" data-inline="true">+医疗检查</a>
+     	 		<a href="#" onClick="setCategoryId(2);" data-role="button" data-inline="true">+医疗诊断</a>
+      			<a href="#" onClick="setCategoryId(3);" data-role="button" data-inline="true">+治疗服务</a>
+	  			<input type="hidden" class="categoryId" value="1"></input>
+    		</div>
+    		<div>
+    			<table class="searchTable">
+      				<tr>
+      					<td width="30%">
+      						<span class="searchCategoryName">医疗检查：</span>
+      					<td>
+      					<td>
+      						<input type="text" class="searchKeyWord" placeholder="请输入关键字"></input>
+      					</td>
+      				</tr>
+      			</table>
+    		</div>
+    		<a href="#" onclick="startSearchProducts();" data-role="button" data-theme="b">搜索</a>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+<!-- 医疗服务查询列表页面 -->
+	<div data-role="page" id="page_medical_service_list_for_search" style="overflow-x:hidden;overflow-y:auto;">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医疗服务列表</h1>
+    		<a href="#page_lv_search_pre" data-icon="search" data-theme="b">搜索</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#patient_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选医疗</a>
+        			</li>
+       	 			<li>
+         	 			<a href="javascript:searchProductsFromTrust(484,'','');" class="customer_my_itinerary" data-icon="custom" data-theme="c">医疗套餐</a>
+        			</li>
+        			<li>
+          				<a href="#patient_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" class="container">
+    
+  		</div>
+	</div>
+
+<!-- 医疗服务详情页面 -->
+	<div data-role="page" id="page_medical_service_detail">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医疗服务详情</h1>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+	</div>
+<!-- 我的医疗单页面 -->
+	<div data-role="page" id="patient_my_itinerary" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>求医问药</h1>
+    		<a href="javascript:clearMyList();" data-icon="delete" data-theme="b">清空医疗单</a>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#patient_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选医疗</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(484,'','');" class="customer_my_itinerary" data-icon="custom" data-theme="c">医疗套餐</a>
+        			</li>
+        			<li>
+          				<a href="#patient_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c" style="text-align:center" class="container">
+  			<div class="tipDiv" style="display:none;">
+  				<span>您的医疗单空空如也，快去</span>
+  				<a href='#patient_search_service'>自选医疗</a>
+  				<span>吧!</span>
+  			</div>
+  			<!-- collapsible-set表示折叠组，每次只会打开一个 -->
+  			<div class="contentDiv" data-role="collapsible-set">
+			</div>
+			<span class="totalSpan">费用合计： <span class="totalMoney"></span>元</span>
+			<a href="javascript:submitOrder();" class="submitOrder" data-role="button" data-theme="b">确认下单</a>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+       		 		<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>	
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+    	</div>
+	</div>
+	
+<!-- 加入医疗单页面 -->
+	<div data-role="page" id="page_medical_service_buy">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>加入医疗单</h1>
+  		</div>
+  		<div data-role="content" class="container">
+  		</div>
+  		 <a href="javascript:void(0);" data-role="button" data-theme="b" class="addToItinerary">加入医疗单</a>
+	</div>
+	
+<!-- 病人订单列表 -->
+	<div data-role="page" id="patient_order_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>我的订单</h1>
+  		</div>
+   		<div data-role="content" style="padding:10px 10px;">
+			<table>
+				<tr style="display:none;">
+					<th>服务名称：</th>
+					<td>
+						<input class="customer_order_service_name" name="customer_order_service_name" placeholder="支持模糊查询" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>起始日期：</th>
+					<td>
+						<input class="customer_order_confrim_from_date" name="customer_order_confrim_from_date" type="date">
+					</td>
+				</tr>
+            	<tr>
+					<th>终止日期：</th>
+					<td>
+						<input class="customer_order_confrim_to_date" name="customer_order_confrim_from_date" type="date">
+					</td>
+				</tr>
+				<tr>
+					<th>订单状态：</th>
+					<td>
+						<select name="customer_order_state" data-role="select" data-inline="true" data-native-menu="true">
+                       	 	<option value="-1">全部</option>
+							<option value="0">未确认</option>
+							<option value="1">已确认</option>
+							<option value="2">已完成</option>
+							<option value="3">未完成</option>
+						</select>
+						&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+					</td>
+				</tr>
+			</table>
+       		<table class="tb_list">
+				<thead>
+					<tr>
+						<th style="width:30%">下单日期</th>
+						<th style="width:20%">订单状态</th>
+						<th style="width:20%">总费用</th>
+						<th style="width:30%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tb_list_tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 病人订单详情页面 -->
+	<div data-role="page" id="patient_order_detail" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>订单详情</h1>
+  		</div>
+   		<div data-role="content" class="container">
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+<!-- 病人更多操作页面 -->
+	<div data-role="page" id="patient_more_operation" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>求医问药</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#patient_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选医疗</a>
+        			</li>
+        			<li>
+          				<a href="javascript:searchProductsFromTrust(484,'','');" class="customer_my_itinerary" data-icon="custom" data-theme="c">医疗套餐</a>
+        			</li>
+       	 			<li>
+          				<a href="#patient_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="content" style="padding-left:10px;">
+			<div data-theme="c">
+      			<ul data-role="listview" data-inset="true">
+      				<li>
+          				<a href="javascript:openMyList();">
+            				<img src="assets/img/itinerary.jpg">    
+            				<h2>我的医疗单</h2>
+            				<p>我的医疗单包含您的已选服务信息。</p>
+          				</a>
+        			</li>
+        			<li>
+         	 			<a href="#basic_health_data">
+            				<img src="assets/img/basicHealthData.png">   
+            				<h2>基础数据</h2>
+            				<p>展示您的基础健康数据。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="#realtime_health_data">
+            				<img src="assets/img/realtimeHealthData.png">   
+            				<h2>实时数据</h2>
+            				<p>展示您的实时检测数据。</p>
+          				</a>
+        			</li>
+        			<li>
+        				<a href="#medical_record">
+          					<img src="assets/img/dianzibingli.png">
+          					<h2>电子病历</h2>
+          					<p>您可以查看历史检测记录。</p>
+        				</a>
+      				</li>
+        			<li>
+          				<a href="javascript:getOrderForPatient('','','','');">
+            				<img src="assets/img/dianzibingli.png">    
+            				<h2>我的订单</h2>
+            				<p>您可以在此处查看您的订单信息。</p>
+          				</a>
+        			</li>
+        		 	<li>
+          				<a href="javascript:alert('调用微信服务');">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>医患互答</h2>
+            				<p>您可以和医生直接交流。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:loadAccountInfo();">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>账户信息</h2>
+            				<p>展示您的账号余额、积分等信息。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+  			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 地图显示页面，展示未做 -->
+	<div data-role="page" id="map"  data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-theme="b">
+    		<h1 id="listTitle"></h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<div>
+      			<input id="txtarea" placeholder="Search Address" type="text" size="20" />
+      			<input id="areaSearch" type="button" value="Search" style="cursor: pointer" />
+      			<input name="txtAreaCode" placeholder="Selected Address" type="text" id="txtAreaCode" size="20" disabled="disabled"/>
+    		</div>
+    		<div style="width: 460px; height: 340px; border: 1px solid gray;" id="map_container"></div>
+  		</div>
+	</div>
+
+<!-- 手动输入健康数据页面 -->
+	<div data-role="page" id="health_data_user_input" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>健康检测数据</h1>
+    		<a href="#save_data" data-icon="info"  data-rel="popup" data-position-to="window" data-transition="pop" data-theme="b">保存</a>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<div data-role="collapsible-set" data-content-theme="c">
+      			<div data-role="collapsible" data-collapsed="false" data-theme="c" data-content-theme="d">
+        			<h4>基础数据</h4>
+        			<div>
+          				<form>
+            				<div data-role="fieldcontain">
+              					<label for="BMISlider">BMI指数:</label>
+              					<input name="BMISlider" id="BMISlider" data-mini="true" data-highlight="true" min="15" max="30" step=".1" value="18.3" type="range">
+              				</div>
+            				<div data-role="fieldcontain">
+              					<label for="bodyFatSlider">体脂肪率%:</label>
+              					<input name="bodyFatSlider" id="bodyFatSlider" data-mini="true" data-highlight="true" min="15" max="30" step=".1" value="17.2" type="range">
+              				</div>
+            				<div data-role="fieldcontain">
+              					<label for="tempSlider">体温&#176;C:</label>
+              					<input name="tempSlider" id="tempSlider"  data-mini="true" data-highlight="true" min="35" max="40" step=".1" value="36.9" type="range">
+              				</div>
+          				</form>
+        			</div>
+      			</div>
+      			<div data-role="collapsible" data-theme="c" data-content-theme="d">
+      				<h4>采集数据</h4>
+        			<div>
+          				<form>
+          					<div data-role="fieldcontain">
+              					<label for="heartBeatInput">心率 /min:</label>
+              					<input name="heartBeatInput" id="heartBeatInput" data-mini="true" value="" type="text">
+            				</div>
+            				<div data-role="fieldcontain">
+              					<div data-role="rangeslider" data-mini="true">
+                					<label for="bloodPressureSlider-a">血压mmHg:</label>
+                					<input name="bloodPressureSlider-a" id="bloodPressureSlider-a" min="70" max="150" value="90" type="range">
+                					<label for="bloodPressureSlider-b">血压mmHg:</label>
+                					<input name="bloodPressureSlider-b" id="bloodPressureSlider-b" min="70" max="150" value="120" type="range">
+                				</div>
+            				</div>
+            				<div data-role="fieldcontain">
+              					<label for="bloodSugarSlider">血糖mmol/L:</label>
+              					<input name="bloodSugarSlider" id="bloodSugarSlider" data-mini="true" data-highlight="true" min="5" max="8" step=".1" value="6.3" type="range">
+            				</div>
+            				<div data-role="fieldcontain">
+              					<label for="lipidsInput">血脂mg/L:</label>
+              					<input name="lipidsInput" id="lipidsInput" data-mini="true" value="" type="text">
+            				</div>
+            				<div data-role="fieldcontain">
+              					<label for="boneInput">骨密度g/cm2:</label>
+              					<input name="boneInput" id="boneInput" data-mini="true" value="" type="text">
+            				</div>
+            				<div data-role="fieldcontain">
+              					<label for="walkSpeedInput">步速m/s:</label>
+              					<input name="walkSpeedInput" id="walkSpeedInput" data-mini="true" value="" type="text">
+            				</div>
+          				</form>
+        			</div>
+      			</div>
+    		</div>
+    		<div data-role="popup" id="save_data" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+      			<h3>是否要保存健康数据?</h3>
+      			<div class="ui-grid-a" style="text-align:center">
+        			<div class="ui-block-a">
+          				<a href="#basic_health_data" data-role="button" data-theme="b"  data-icon="check" data-inline="true" data-mini="true">确认</a>
+        			</div>
+        			<div class="ui-block-b">
+          				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+<!-- 基本健康数据页面 -->
+	<div data-role="page" id="basic_health_data" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>健康数据</h1>
+    		<div class="ui-grid-b" style="text-align:center">
+      			<div class="ui-block-a">
+        			<a href="#page_lv_health_select" data-role="button" data-theme="a" data-icon="refresh" data-inline="true" data-mini="true"  onclick="refresh()">刷新</a>
+     	 		</div>
+      			<div class="ui-block-b">
+        			<button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" >系统导入</button>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#health_data_user_input" data-role="button" data-theme="c" data-icon="edit" data-inline="true" data-mini="true" >手动输入</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<div class="ui-grid-a" style="text-align:center">
+      			<div class="ui-block-a" >
+        			<a href="#bmi" data-rel="popup" data-role="image" data-inline="true">
+          				<img src="assets/img/shengao.jpg" alt="France" class="ui-li-icon ui-corner-none 2-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="#bodyfat" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/tizhong.jpg" alt="France" class="ui-li-icon ui-corner-none 2-href-img-in-a-line">
+          			</a>
+      			</div>
+     	 		<div class="ui-block-a">
+        			身高:<span id="height"></span>cm
+      			</div>
+      			<div class="ui-block-b">
+        			体重:<span id="weight" ></span>kg
+      			</div>
+    		</div>
+    		<div class="ui-grid-b" style="text-align:center">
+      			<div class="ui-block-a" >
+        			<a href="#bmi" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/xiongxing.png" alt="France" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="#bodyfat" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/biaojiwu.png" alt="France" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#temp" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/temperature.png" alt="United States" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-a">BMI指数:22.8</div>
+      			<div class="ui-block-b">体脂肪率:<span id="fatRate"></span>%</div>
+      			<div class="ui-block-c">体温:<span id="temperature"></span>°C</div>
+    		</div>
+			<div style="text-align:center">
+				<div>
+        			<a href="#" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/mindwave.jpg" alt="France" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+	  			<div>
+	  				脑电波:注意力(<span id="attention"></span>)/冥想力(<span id="meditation"></span>)
+	  			</div>
+			</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 实时健康数据页面 -->
+	<div data-role="page" id="realtime_health_data" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>健康数据</h1>
+    		<div class="ui-grid-b" style="text-align:center">
+      			<div class="ui-block-a">
+        			<a href="#page_lv_health_select" data-role="button" data-theme="a" data-icon="refresh" data-inline="true" data-mini="true">重新采集</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" >系统导入</button>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#health_data_user_input" data-role="button" data-theme="c" data-icon="edit" data-inline="true" data-mini="true" >手动输入</a>
+      			</div>
+    		</div>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<div class="ui-grid-b" style="text-align:center">
+      			<div class="ui-block-a">
+        			<a href="#">
+          				<img src="assets/img/xindian.png" alt="Germany" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="#">
+          				<img src="assets/img/xiongtou.png" alt="Great Britain" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#">
+          				<img src="assets/img/saomiaoluru.png" alt="Finland" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-a">心率:86</div>
+      			<div class="ui-block-b">骨密度:1197(g/cm2)</div>
+      			<div class="ui-block-c">血压:125/84</div>
+      			<div class="ui-block-a">&nbsp;&nbsp;</div>
+      			<div class="ui-block-b">&nbsp;&nbsp;</div>
+      			<div class="ui-block-c">&nbsp;&nbsp;</div>
+      			<div class="ui-block-a">
+        			<a href="#bloodSugar" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/xue-niao.png"  alt="United States" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="#">
+          				<img src="assets/img/bchao.png" alt="United States" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#">
+          				<img src="assets/img/jiazhuangxian.png" alt="France" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-a">
+        			血糖:<a href="#health_graph">7.3</a>
+      			</div>
+      			<div class="ui-block-b">血脂:120mg/L</div>
+      			<div class="ui-block-c">步速:1.2m/s</div>
+    		</div>
+    		<div id="bmi" data-role="popup" data-overlay-theme="a" class="ui-content">
+      			<p>  
+        			轻体重：BMI<18.5
+        			健康体重：18.5<=BMI<24
+        			超重：24<=BMI<28
+        			肥胖：28<=BMI       
+      			</p>
+    		</div>
+    		<div id="bodyfat" data-role="popup" data-overlay-theme="a" class="ui-content">
+      			<p>男性体脂>25%，女性>33%是诊断为肥胖的标准</p>
+    		</div>
+    		<div id="temp" data-role="popup" data-overlay-theme="a" class="ui-content">
+      			<p>正常人腋下温度为36～37度</p>
+    		</div>
+    		<div id="bloodSugar" data-role="popup" data-overlay-theme="a" class="ui-content">
+      			<p>
+        			正常人在空腹血糖浓度为3.9～6.0mmol/L。空腹血糖浓度超过6.0mmol/L称为高血糖。血糖浓度低于3.9mmol/L称为低血糖
+      			</p>
+    		</div>
+    		<div data-theme="c">
+      			<ul data-role="listview"  data-inset="true">
+        			<li>
+          				<a href="#system_health_suggestion">
+            				<img src="assets/img/system_suggestion.png">    
+            				<h2>彩云天使建议</h2>
+            				<p>您可以获取系统给出的诊断结果以及建议。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="#page_lv_choose_doctor">
+            				<img src="assets/img/doctor_suggestion.png">    
+            				<h2>私人医生建议</h2>
+            				<p>您可以选择医生进行咨询。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="#patient_search_service">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>更多医疗服务</h2>
+           	 				<p>您可以获取更多护理等医疗服务。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="#page_lv_health_experience_spot">
+            				<img src="assets/img/experience_spot.jpg">
+            				<h2>体验式场所</h2>
+            				<p>您可以现场体验私人医生。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav"  style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+  	 		<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 电子病历页面 -->
+	<div data-role="page" id="medical_record" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>电子病历</h1>
+  		</div>
+  		<div data-role="content" data-theme="c" style="text-align:center">
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">
+        			2013年7月26日，周五
+        			<span class="ui-li-count">1</span>
+      			</li>
+      			<li>
+        			<h2>血糖指数偏高</h2>
+        			<p> <strong>实时检测数据显示您餐前血糖超过了标准</strong>
+        			</p>
+        			<p>系统诊断疑似糖尿病，建议您持续检测一周进行观察。</p>
+        			<p class="ui-li-aside"> <strong>6:24</strong>
+         	 			AM
+        			</p>
+      			</li>
+      			<li>
+        			<h2>血糖指数偏高</h2>
+        			<p>
+          				<strong>实时检测数据显示您餐后血糖超过了标准</strong>
+        			</p>
+        			<p>系统诊断疑似糖尿病，建议您持续检测一周进行观察。</p>
+        			<p class="ui-li-aside">
+          				<strong>7:00</strong>
+          				AM
+        			</p>
+      			</li>
+      			<li data-role="list-divider">
+        			2013年7月22日，周一
+        			<span class="ui-li-count">2</span>
+      			</li>
+      			<li>
+        			<h2>血压偏高</h2>
+        			<p>
+          				<strong>实时检测数据显示您血压偏高</strong>
+        			</p>
+        			<p>系统诊断疑似高血压，建议您稍作休息后，再次测量。</p>
+        			<p class="ui-li-aside">
+          				<strong>4:48</strong>
+          				PM
+        			</p>
+      			</li>
+      			<li data-role="list-divider">
+        			2013年7月21日，周日
+        			<span class="ui-li-count">3</span>
+      			</li>
+     		 	<li>
+        			<h2>各项指数均正常</h2>
+        			<p>
+          				<strong>实时检测数据显示您身体状况良好</strong>
+        			</p>
+        			<p>请继续保持良好的作息和饮食习惯，夏日请多饮水，适当锻炼。</p>
+        			<p class="ui-li-aside">
+          				<strong>3:48</strong>
+          				PM
+        			</p>
+      			</li>
+    		</ul>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data ui-btn-active ui-state-persist">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 医药服务板块-->
+<!-- 医生订单列表页面 -->
+	<div data-role="page" id="doctor_order_list">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>订单列表</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+       	 			<li>
+          				<a href="#doctor_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_patient_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">医患互答</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+		<div data-role="content">
+			<div style="padding:10px 10px 10px 10px;">
+				<table class="tb_list">
+					<thead>
+						<tr>
+							<th style="width:20%">使用时间</th>
+							<th style="width:25%">服务名称</th>
+							<th style="width:25%">票种名称</th>
+							<th style="width:12%">费用</th>
+							<th style="width:18%">操作</th>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+				
+					</tbody>
+				</table>
+			</div>
+  		</div>  
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+	
+<!-- 医患互答页面 -->
+	<div data-role="page" id="doctor_patient_comunication" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医药服务</h1>
+   	 		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#doctor_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+         			<li>
+          				<a href="#doctor_patient_comunication" class="doctor_patient_comunication ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">医患互答</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+   		<div data-role="content">
+    		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/patient_1.jpg">
+          				<h2>张三</h2>
+          				<p>病史：糖尿病</p>
+        			</a>
+        			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/patient_2.jpg">
+          				<h2>李四</h2>
+          				<p>病史：血糖过高</p>
+        			</a>
+        			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/patient_3.jpg">
+          				<h2>李强</h2>
+          				<p>病史：暂无病史</p>
+        			</a>
+        			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/patient_4.jpg">
+          				<h2>王新</h2>
+          				<p>病史：帕金森综合症</p>
+        			</a>
+        			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+      			</li>
+    		</ul>
+    		<div data-role="popup" id="toAnswer" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+      			<h3>立即回复该咨询?</h3>
+      			<p>如果病人不在线，系统将留言给病人.请点击确认开始回复。</p>
+      			<div class="ui-grid-a" style="text-align:center">
+       		 		<div class="ui-block-a">
+          				<a href="#page_lv_answer_patient" data-role="button" data-theme="b" data-icon="check" data-inline="true" data-mini="true">确认</a>
+        			</div>
+        			<div class="ui-block-b">
+          				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 医生服务管理页面 -->
+	<div data-role="page" id="doctor_service_manager" data-close-btn="right" data-overlay-theme="e">
+	 	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>医药服务</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#doctor_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_service_manager" class="doctor_service_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+         			<li>
+          				<a href="#doctor_patient_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">医患互答</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+		<div data-role="content">
+			<div data-theme="c">
+      			<ul data-role="listview"  data-inset="true">
+        			<li>
+          				<a href="javascript:getProductsByProductNameAndComNameWithJson();">
+            				<img src="assets/img/system_suggestion.png">    
+            				<h2>发布医疗服务</h2>
+            				<p>您可以发布医疗服务供病人查询。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:openPublishedProduct();">
+            				<img src="assets/img/doctor_suggestion.png">    
+            				<h2>医疗服务列表</h2>
+            				<p>展示您已发布的医疗服务。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:openAuditList();">
+            				<img src="assets/img/more_suggestions.png">    
+            				<h2>服务许可确认</h2>
+            				<p>您可以对您被申请的服务进行确认。</p>
+          				</a>
+        			</li>	
+      			</ul>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav"  style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+       	 			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 医生订单查询首页 -->
+	<div data-role="page" id="doctor_data">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    		<h1>医药服务</h1>
+    		<div data-role="navbar" class="nav-glyphish-example">
+      			<ul>
+        			<li>
+          				<a href="#doctor_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_patient_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">医患互答</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+		<div data-role="content" style="padding-left:10px;">
+			<div>
+				<table style="width:100%">
+					<tbody>
+						<tr>
+							<th>
+								服务类型：
+							</th>
+							<td>
+								<select name="select-choice-1" id="select-choice-1" data-role="select" data-inline="true" data-native-menu="true">
+									<option value="0">医疗检查</option>
+									<option value="1">医疗诊断</option>
+									<option value="2">药品供应</option>
+									<option value="3">注射服务</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								服务名称：
+							</th>
+							<td>
+								<input id="serviceName" name="serviceName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								病人姓名：
+							</th>
+							<td>
+								<input id="patientName" name="patientName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								起始日期：
+							</th>
+							<td>
+								<input id="fromDate" name="fromDate" type="text">
+							</td>
+							
+							
+						</tr>
+						<tr>
+							<th>
+								终止日期：
+							</th>
+							<td>
+								<input id="toDate" name="toDate" type="text">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<a href="javascript:getOrderItemsForDoctor();" data-role="button" data-theme="b">检索订单</a>
+			</div>
+  		</div>  
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>	
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 医生已发布服务列表 -->
+	<div data-role="page" id="doctor_service_list">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1 id="conf_txt">医疗服务列表</h1>
+		</div>
+		<div data-role="content" class="container">
+  		</div>  
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 服务许可申请列表 -->
+	<div data-role="page" id="doctor_service_audit_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>许可申请列表</h1>
+  		</div>
+   		<div data-role="content" style="padding:10px 10px;">
+			<table>
+				<tr>
+					<th>服务名称：</th>
+					<td>
+						<input class="serviceName" placeholder="输入关键字查询" type="text">
+					</td>
+				</tr>
+				<tr>
+					<th>申请企业：</th>
+					<td>
+						<input class="applyName" type="date">
+					</td>
+				</tr>
+				<tr>
+					<th>起始日期：</th>
+					<td>
+						<input class="applyDate" type="date">
+					</td>
+				</tr>
+				<tr style="text-align:center; display:none;" class="tr_demo">
+					<td class="productName"></td>
+					<td class="applyName"></td>
+					<td class="applyDate"></td>
+					<td class="applyStatus"></td>
+					<td><a href="#" class="openDetail">查看</a></td>
+				</tr>
+			</table>
+        	<table class="tb_list">
+				<thead>
+					<tr>
+						<th style="width:30%">服务名称</th>
+						<th style="width:25%">申请人</th>
+						<th style="width:20%">申请日期</th>
+						<th style="width:15%">状态</th>
+						<th style="width:10%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data ui-btn-active ui-state-persist">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 彩云天使角色（经营商）首页 -->
+	<div data-role="page" id="agent_data" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    		<h1>彩云天使</h1>
+  		</div>
+   		<div data-role="content">
+       		<div data-theme="c">
+				<ul data-role="listview"  data-inset="true">
+					<li>
+						<a href="javascript:displayProductFromTrustForHub();">
+							<img src="assets/img/system_suggestion.png">    
+							<h2>申请组合服务</h2>
+							<p>您可以组合多种医疗服务形成服务套餐。</p>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:openPackageList();">
+							<img src="assets/img/xyyy1.jpg">    
+							<h2>组合服务列表</h2>
+							<p>展示您已发布的组合医疗服务。</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data ui-btn-active ui-state-persist">彩云天使</a>
+        			</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- agent已发布医疗套餐列表 -->
+	<div data-role="page" id="agent_service_list" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>组合服务列表</h1>
+  		</div>
+   		<div data-role="content" style="padding:10px 10px;">
+			<table>
+				<tr>
+					<th>服务名称：</th>
+					<td>
+						<input class="hub_publishServiceName" placeholder="输入关键字查询" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>发布日期：</th>
+					<td>
+						<input class="hub_publishTime" type="text" />
+					</td>
+				</tr>
+				<tr>
+					<th>服务状态：</th>
+					<td>
+						<select class="hub_service_state" data-role="select" data-inline="true" data-native-menu="true">
+							<option value="0">未申请</option>
+							<option value="1">正在审核</option>
+							<option value="2">通过审核</option>
+							<option value="3">已发布</option>
+						</select>
+						&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+					</td>
+				</tr>
+			</table>
+			<table class="tb_list tb_productList" style="display:none;">
+				<thead>
+					<tr>
+						<th style="width:40%">套票名称</th>
+						<th style="width:25%">发布日期</th>
+						<th style="width:20%">状态</th>
+						<th style="width:15%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tbody">
+				
+				</tbody>
+			</table>
+  		</div>
+ 		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   			<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+				<ul>
+        			<li>
+          				<a href="#patient_search_service" class="patient_data">求医问药</a>
+        			</li>
+        			<li>
+          				<a href="#doctor_data" class="doctor_data">医药服务</a>
+        			</li>
+        			<li>
+          				<a href="#agent_data" class="agent_data ui-btn-active ui-state-persist">彩云天使</a>
+       			 	</li>
+      			</ul>
+    		</div>
+		</div>
+	</div>
+
+<!-- 彩云阁场景 -->
+	<div data-role="page" id="page_lv_health_experience_spot" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>选择场景</h1>
+  		</div>
+  		<div data-role="content" style="padding:0px 0px;">
+    		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/experience_spot.jpg">
+          				<h2>彩云阁</h2>
+          				<p>蔡伦路1159号软件楼103</p>
+        			</a>
+        			<a href="javascript:Toast('请直接前往参观', 2000);" data-rel="popup" data-position-to="window" data-transition="pop">详情</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+
+<!-- 健康建议页面 -->
+	<div data-role="page" id="health_suggestion"  data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>健康检测数据</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview"  data-inset="true">
+      			<li>
+        			<a href="#system_health_suggestion">
+          				<img src="assets/img/system_suggestion.png">
+          				<h2>彩云天使建议</h2>
+          				<p>您可以获取系统给出的诊断结果以及建议。</p>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="#page_lv_choose_doctor">
+          				<img src="assets/img/doctor_suggestion.png">
+          				<h2>私人医生建议</h2>
+          				<p>您可以选择医生进行咨询。</p>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="#page_lv_health_nurse_service">
+         	 			<img src="assets/img/more_suggestions.png">
+          				<h2>更多医疗服务</h2>
+          				<p>您可以获取更多护理等医疗服务。</p>
+        			</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+	
+<!-- 彩云天使建议页面 -->
+	<div data-role="page" id="system_health_suggestion" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>彩云天使建议</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<div data-role="collapsible-set" data-content-theme="c">
+      			<div data-role="collapsible" data-theme="c" data-content-theme="d">
+        			<h4>疾病诊断</h4>
+        			<img src="assets/img/zhenduan-act.png" alt="France" class="ui-li-icon ui-corner-none" style="float:left">
+        			<div style="padding-left:60px">
+          				<p>您的血糖偏高，初步诊断为糖尿病。</p>
+          				<p>
+            				糖尿病是一组由于胰岛素分泌缺陷和/或胰岛素作用障碍所致的以高血糖为特征的代谢性疾病。持续高血糖与长期代谢紊乱等可导致全身组织器官，特别是眼、肾、心血管及神经系统的损害及其功能障碍和衰竭。严重者可引起失水，电解质紊乱和酸碱平衡失调等急性并发症酮症酸中毒和高渗昏迷。
+          				</p>
+        			</div>
+      			</div>
+      			<div data-role="collapsible" data-theme="c" data-content-theme="d">
+        			<h4>日常建议</h4>
+        			<img src="assets/img/zhuanjia-act.png"  alt="France" class="ui-li-icon ui-corner-none" style="float:left">
+        			<div style="padding-left:60px">
+          				<p>
+            				饮食治疗是各种类型糖尿病基础治疗的首要措施。饮食治疗的原则是：控制总热量和体重。减少食物中脂肪，尤其是饱和脂肪酸含量，增加食物纤维含量，使食物中碳水化合物、脂肪和蛋白质的所占比例合理。控制膳食总能量的摄入，合理均衡分配各种营养物质。维持合理体重，超重/肥胖患者减少体重的目标是在3-6个月期间体重减轻5%-10%。消瘦患者应通过均衡的营养计划恢复并长期维持理想体重。
+          				</p>
+        			</div>
+      			</div>
+      			<div data-role="collapsible" data-theme="c" data-content-theme="d">
+        			<h4>注意事项</h4>
+        			<img src="assets/img/info-act.png" alt="France" class="ui-li-icon ui-corner-none" style="float:left">
+        			<div style="padding-left:60px">
+          				<p>尽量少吃肥肉、猪油等油腻食物，炒菜少放油，每人一天不超过20克（相当于两汤匙油）。</p>
+          				<p>
+            				少吃甜点如点心、饼干、糕点等，炒菜尽量不要加糖；也不要吃太咸的食物，如咸菜、腌肉、酱肉、火腿等、炒菜少放盐、少放酱油，每人一天吃盐在6克左右。
+          				</p>
+          				<p>
+            				适量多吃高膳食纤维食物，如荞麦、燕麦、豆类、蔬菜、谷物类，新鲜蔬菜每人一天至少吃500克（1斤），既能帮助保持餐后血糖不至于太高，也容易吃得饱，还有通便作用；补充蛋白质尽量选择瘦肉、鱼类、蛋、无皮鸡肉、牛奶等。
+          				</p>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+	
+<!-- 健康图谱页面 -->
+	<div data-role="page" id="health_graph" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>数据历史记录</h1>
+  		</div>
+  		<div data-role="content" data-theme="c" align="center">
+    		<div id="chart2" style="height:300px; width:500px;"></div>
+  		</div>
+	</div>
+	
+<!-- 私人医生建议 -->
+	<div data-role="page" id="page_lv_choose_doctor">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>选择医生</h1>
+    		<a href="#basic_health_data" data-icon="info" data-theme="b">我的健康数据</a>
+  		</div>
+  		<div data-role="content" style="padding:0px 0px;">
+    		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/doc1.jpg">
+          				<h2>张三</h2>
+          				<p>教授  主任医师</p>
+        			</a>
+       	 			<a href="#toConsult" data-rel="popup" data-position-to="window" data-transition="pop">咨询</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/doc2.jpg">
+          				<h2>李四</h2>
+          				<p>教授  主任医师</p>
+        			</a>
+        			<a href="#toPay" data-rel="popup" data-position-to="window" data-transition="pop">咨询</a>
+      			</li>
+      			<li>
+        			<a href="#">
+         	 			<img src="assets/img/doc3.jpg">
+          				<h2>李强</h2>
+          				<p>教授  副主任医师</p>
+        			</a>
+        			<a href="#toConsult" data-rel="popup" data-position-to="window" data-transition="pop">咨询</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/doc4.jpg">
+          				<h2>王新</h2>
+          				<p>医师</p>
+        			</a>
+        			<a href="#toConsult" data-rel="popup" data-position-to="window" data-transition="pop">咨询</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<img src="assets/img/doc5.jpg">
+          				<h2>陈欢乐</h2>
+          				<p>医师</p>
+        			</a>
+        			<a href="#toConsult" data-rel="popup" data-position-to="window" data-transition="pop">咨询</a>
+      			</li>
+    		</ul>
+    		<div data-role="popup" id="toConsult" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+      			<h3>立即向该医生发起咨询对话?</h3>
+      			<p>如果医生不在线，系统将留言给医生.请点击确认开始咨询医生。</p>
+      			<div class="ui-grid-a" style="text-align:center">
+        			<div class="ui-block-a">
+          				<a href="#page_lv_answer_patient" data-role="button" data-theme="b" data-icon="check" data-inline="true" data-mini="true">确认</a>
+        			</div>
+        			<div class="ui-block-b">
+          				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        			</div>
+      			</div>
+    		</div>
+    		<div data-role="popup" id="toPay" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+      			<h3>立即向该医生发起咨询对话?</h3>
+      			<p>对不起，请点击确认到支付页面进行支付.</p>
+      			<div class="ui-grid-a" style="text-align:center">
+        			<div class="ui-block-a">
+          				<a href="#" data-role="button"  data-theme="b" data-icon="check" data-inline="true" data-mini="true">支付</a>
+        			</div>
+        			<div class="ui-block-b">
+          				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+<!-- 回复咨询页面 -->
+	<div data-role="page" id="page_lv_answer_patient">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>回复咨询</h1>
+    		<a href="#patient_history_data" data-icon="info" data-theme="b">病史数据</a>
+  		</div>
+  		<div data-role="content" style="padding:0px 0px;">
+    		<div class="jilu">
+      			<div class="left">
+        			<div class="gd">
+          				<div class="ys">
+            				<div class="zuo">
+              					<div class="you">
+              						<div class="l1">2013-8-7 下午3:25</div>
+              						<div class="l2">医生您好，我最近几天睡眠质量很差，晚上多梦易醒，</div>
+            					</div>
+            				</div>
+            				<div class="you">
+              					<img src="assets/img/zhuanjia-act.png"  />
+            				</div>
+            				<div style="clear:both;"></div>
+          				</div>
+          				<div class="ys1">
+            				<div class="zuo">
+              					<img src="assets/img/info-act.png"  />
+            				</div>
+            				<div class="you">
+              					<div class="l1">2013-8-7 下午3:26</div>
+              					<div class="l2">那请问您有采取过什么治疗措施吗？</div>
+            				</div>
+            				<div style="clear:both;"></div>
+          				</div>
+          				<div class="ys">
+            				<div class="zuo">
+               					<div class="l1">2013-8-7 下午3:29</div>
+              					<div class="l2">已经尝试在睡觉之前听音乐放松，但是效果不佳。</div>
+            				</div>
+            				<div class="you">
+              					<img src="assets/img/zhuanjia-act.png"  />
+            				</div>
+            				<div style="clear:both;"></div>
+          				</div>
+          				<div class="ys1">
+            				<div class="zuo">
+              					<img src="assets/img/info-act.png"  />
+            				</div>
+            				<div class="you">
+              					<div class="l1">2013-8-7 下午3:33</div>
+              					<div class="l2">听哪种类型音乐？能列举些例子吗？有没有在饮食上摄入一些安神助眠的食物，例如莲子、红枣等。</div>
+            				</div>
+            				<div style="clear:both;"></div>
+          				</div>
+          				<div class="ys">
+            				<div class="zuo">
+              				<div class="l1">2013-8-7 下午3:33</div>
+              				<div class="l2">请问这样的情况该如何治疗呢？</div>
+            			</div>
+            			<div class="you">
+              				<img src="assets/img/zhuanjia-act.png"  />
+            			</div>
+            			<div style="clear:both;"></div>
+          			</div>
+        		</div>
+      		</div>
+      		<div style="float:right">
+        		<textarea cols="40" rows="3" name="textarea"  placeholder="请输入回复信息" data-inline="true"></textarea>
+      		</div>
+      			<div style="float:right">
+        			<a href="#" data-role="button" data-theme="b" data-inline="true" data-mini="true">发送</a>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+<!-- 病史记录页面 -->
+	<div data-role="page" id="patient_history_data">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>病人病史数据</h1>
+		</div>
+		<div data-role="content" data-theme="c" style="text-align:center">
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider">
+					诊断日期：2013年7月26日，周五
+					<span class="ui-li-count">1</span>
+				</li>
+				<li>
+					<h3>医疗服务名称：(检查类)糖尿病检测</h3>
+					<p>
+						<strong>诊断结果：确实患有糖尿病</strong>
+					</p>
+					<p>医生建议：平时应该减少甚至不吃甜食，经常锻炼。</p>
+        
+				</li>
+      
+				<li data-role="list-divider">
+					诊断日期：2013年7月22日，周一
+					<span class="ui-li-count">2</span>
+				</li>
+				<li>
+					<h3>医疗服务名称：(注射类)感冒针注射</h3>
+					<p>
+						<strong>治疗结果：感冒被治愈</strong>
+					</p>
+					<p>医生建议：平时应该加强身体锻炼，增强体质。</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+<!-- 医生发布服务-->
+	<div data-role="page" id="doctor_publish_service">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+			<a href="#" data-icon="back" data-rel="back">返回</a>
+			<h1>医药服务发布</h1>
+			<a href="#doctor_service_manager" data-icon="info" data-theme="b">服务管理</a>
+		</div>
+		<div data-role="content" class="container">
+			<div style="margin-top:5px;">
+				<table>
+					<tr>
+						<td><input type="search" class="keyword"></input></td>
+						<td><a href="javascript:searchProductFromTrust();" style="padding-left:10px;">搜索</a></td>
+					</tr>
+				</table>
+			</div>
+			<div class="table_container">
+			</div>
+  		</div>  
+	</div>
+	
+</body>
+</html>

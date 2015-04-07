@@ -1,0 +1,125 @@
+.ui-icon-cem-shop-cart{
+	background-image:url(../assets/img/80-shopping-cart.png)
+}
+.ui-icon-cem-user{
+	background-image:url(../assets/img/111-user.png)
+}
+.ui-icon-cem-config{
+	background-image:url(../assets/img/157-wrench.png)
+}
+.ui-icon-cem-credit-card{
+	background-image:url(../assets/img/192-credit-card.png)
+}
+.ui-li-icon-right {
+    max-height: 40px;
+    max-width: 40px;
+    right: 10px;
+    top: .9em;
+}
+
+.student_data .ui-icon {
+    background: url("../assets/img/glyphish-icons/102-walk.png") no-repeat transparent center;
+}
+
+.customer_search_service .ui-icon {
+    background: url("../assets/img/glyphish-icons/40-inbox.png") no-repeat transparent center;
+}
+.customer_my_itinerary .ui-icon {
+    background: url("../assets/img/glyphish-icons/122-stats.png") no-repeat transparent center;
+}
+.customer_data .ui-icon {
+    background: url("../assets/img/glyphish-icons/102-walk.png") no-repeat transparent center;
+}
+
+.patient_data .ui-icon{
+	background: url("../assets/img/glyphish-icons/10-medical.png") no-repeat transparent center;
+}
+
+.doctor_data .ui-icon {
+	background: url("../assets/img/glyphish-icons/111-user.png") no-repeat transparent center;
+}
+
+.agent_data .ui-icon{
+	background: url("../assets/img/glyphish-icons/112-group.png") no-repeat transparent center;
+}
+
+.experience_spot .ui-icon {
+    background: url("../assets/img/glyphish-icons/07-map-marker.png") no-repeat transparent center;
+}
+
+.basic_health_data .ui-icon {
+    background: url("../assets/img/glyphish-icons/79-medical-bag.png") no-repeat transparent center;
+}
+
+.doctor_patient_comunication .ui-icon {
+	background: url("../assets/img/glyphish-icons/09-chat-2.png") no-repeat transparent center;
+}
+
+.doctor_order_manager .ui-icon {
+	background: url("../assets/img/glyphish-icons/44-shoebox.png") no-repeat transparent center;
+}
+
+.doctor_service_manager .ui-icon {
+	background: url("../assets/img/glyphish-icons/37-suitcase.png") no-repeat transparent center;
+}
+
+.medical_record .ui-icon {
+    background: url("../assets/img/glyphish-icons/179-notepad.png") no-repeat transparent center;
+}
+
+.realtime_health_data .ui-icon {
+    background: url("../assets/img/glyphish-icons/122-stats.png") no-repeat transparent center;
+}
+
+.examination .ui-icon {
+    background: url("../assets/img/glyphish-icons/12-eye.png") no-repeat transparent center;
+}
+
+.diagnosis .ui-icon {
+    background: url("../assets/img/glyphish-icons/10-medical.png") no-repeat transparent center;
+}
+
+.medicine .ui-icon {
+    background: url("../assets/img/glyphish-icons/79-medical-bag.png") no-repeat transparent center;
+}
+
+.injection .ui-icon {
+    background: url("../assets/img/glyphish-icons/173-eyedropper.png") no-repeat 50% 50% / 12px 28px transparent center;
+}
+
+.homework_information .ui-icon{
+    background: url("../assets/img/glyphish-icons/44-shoebox.png") no-repeat transparent center;
+}
+
+.homework_result .ui-icon{
+    background: url("../assets/img/glyphish-icons/17-bar-chart.png") no-repeat transparent center;
+}
+
+.nav-glyphish-example .ui-btn .ui-icon {
+    border-radius: 0 0 0 0 !important;
+    box-shadow: none !important;
+    height: 30px !important;
+    margin-left: -15px !important;
+    width: 30px !important;
+}
+
+.tb_list {
+    border:1px solid #999C95;
+	width:100%;
+
+	border-collapse: collapse;
+}
+.tb_list td {
+	line-height: 25px;
+	border: 1px solid #C0C4BD;
+	text-align: center;
+	font-size:12px;
+}
+.tb_list thead th {
+	vertical-align: middle;
+	text-align: center;
+	font-size:12px;
+	border: 1px solid #55AA11;
+	background: #D8E4F0;
+	color: #2F5E86;
+}

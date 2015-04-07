@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cloud Media</title>
+  <link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+  <link href="css/myicon.css" rel="stylesheet" type="text/css"/>
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+  <script src="js/cordova.js" type="text/javascript"></script>
+  <script src="js/plugins/childbrowser.js" type="text/javascript"></script>
+  <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="jqmobile/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+  <script src="js/loadingDiv.js" type="text/javascript"></script>
+  <script src="js/commonUtil.js" type="text/javascript"></script>
+  <script src="js/otherLink.js" type="text/javascript"></script>
+  <script src="js/callTrustWebService.js" type="text/javascript"></script>
+  <script src="js/mediaUtil.js" type="text/javascript"></script>
+  <script src="js/otherUtil.js" type="text/javascript"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="onPageload()">
+<!-- 可信备案相关div -->
+		<div data-role="page" id="productListFromTrust" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>可信平台备案产品列表</h1>
+  			</div>
+  			<div data-role="content" class="container">
+    			
+  			</div>
+		</div>
+<!-- 产品票种列表页面 -->
+		<div data-role="page" id="productPriceDim" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>选择产品类型</h1>
+  			</div>
+  			<span class="welcome">您可以选择以下类型</span>
+  			<div data-role="content" class="container" style="text-align:center;">
+    
+  			</div>
+  			<a href="javascript:void(0);" class="commit" data-role="button" data-theme="b">下一步</a>
+		</div>
+<!-- 订单支付页面 -->
+		<div data-role="page" id="page_pay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>订单支付</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+  			<a href="#" data-role="button" class="paySubmit" data-theme="b">确认</a>
+		</div>
+		
+		<div data-role="page" id="page_pay_okay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<h1>完成交易</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+		</div>
+
+<!-- 账户信息页面 -->
+		<div data-role="page" id="customer_information" data-close-btn="right" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>账户信息</h1>
+  			</div>
+   			<div data-role="content" class="container" style="padding:10px 10px;">
+       
+  			</div>
+  			<a href="#" onclick="javascript:alert('修改成功！');" data-role="button" data-theme="b">确认修改</a>
+		</div>
+
+<!-- 服务申请审核页面 -->
+<div data-role="page" id="writer_service_audit_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>服务许可审核详情</h1>
+  </div>
+   <div data-role="content" class="container">
+	</div>
+	  <div class="operatorDiv">
+	  	  <a href="#" class="agreeButton" data-role="button" data-theme="b">同意</a>
+	  	  拒绝原因：<a href="#" class="disagreeButton">拒绝</a><input type="text" class="reason">
+	  </div>
+</div>
+
+<!-- editor发布套票页面 -->
+<div data-role="page" id="editor_publish_service" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>申请组合服务</h1>
+    <a href="#" class="publish" data-icon="arrow-r" data-iconpos="right" data-theme="b">发布期刊杂志</a>
+  </div>
+   <div data-role="content" class="container">
+  </div>
+</div>
+<div data-role="page" id="editor_publish_service_second_step" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>期刊杂志发布</h1>
+  </div>
+   <div data-role="content" class="container">
+		
+   </div>
+   <a href="#" class="publish" data-role="button" data-theme="b">确认提交</a>
+</div>
+
+<!-- 期刊杂志详情页面 -->
+<div data-role="page" id="editor_publish_service_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>期刊杂志详情</h1>
+  </div>
+   <div data-role="content" class="container">	
+   </div>
+   <a href="#" class="publishAndRecord" data-role="button" data-theme="b">发布并在可信平台备案</a>
+</div>
+
+<!-- 经营商发布服务许可申请页面 -->
+<div data-role="page" id="editor_service_apply" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>服务组合许可申请</h1>
+  </div>
+   <div data-role="content" class="container" style="padding:10px 10px;">
+  </div>
+  <a href="#" data-role="button" class="applyButton" data-theme="b">申请许可</a>
+</div>
+	
+	<div data-role="page" id="reader_search_service" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav" class="headerPart">
+    <a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    <h1>读者</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+    	<ul>
+        	<li>
+          		<a href="#reader_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选读物</a>
+        	</li>
+        	<li>
+          		<a href="javascript:searchProductsFromTrust(492, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">杂志期刊</a>
+        	</li>
+        	<li>
+          		<a href="#reader_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        	</li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" data-theme="c">
+   <div class="select-links">
+      <a href="#" onClick="setCategoryId(1);" data-role="button" data-inline="true">+心得体会</a>
+      <a href="#" onClick="setCategoryId(2);" data-role="button" data-inline="true">+专业文章</a>
+      <a href="#" onClick="setCategoryId(3);" data-role="button" data-inline="true">+生活杂谈</a>
+      <a href="#" onClick="setCategoryId(4);" data-role="button" data-inline="true">+其他</a>
+	  <input type="hidden" class="categoryId" value="1"></input>
+    </div>
+    <div>
+    	<table class="searchTable">
+      	<tr>
+      		<td width="30%;">
+      			<span class="searchCategoryName">心得体会：</span>
+      		<td>
+      		<td>
+      			<input type="text" class="searchKeyWord" placeholder="请输入关键字"></input>
+      		</td>
+      	</tr>
+      	<tr style="display:none;" class="price">
+      		<td width="30%;">
+      			<span>最高价格：</span>
+      		<td>
+      		<td>
+      			<input type="number" class="searchPrice"></input>
+      		</td>
+      	</tr>
+      </table>
+    </div>
+    <a href="#" onclick="startSearchProducts();" data-role="button" data-theme="b">搜索</a>
+  </div>
+	<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" 
+		class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+		<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+			<ul>
+        		<li>
+          			<a href="#reader_search_service" class="student_data ui-btn-active ui-state-persist">读者</a>
+        		</li>
+        		<li>
+          			<a href="#writer_data" class="doctor_data">作者</a>
+        		</li>
+        		<li>
+          			<a href="#editor_data" class="agent_data">期刊杂志</a>
+        		</li>
+      		</ul>
+    	</div>
+	</div>
+</div>
+
+<div data-role="page" id="page_media_service_list_for_search" style="overflow-x:hidden;overflow-y:auto;">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>读物服务列表</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        	<li>
+          		<a href="#reader_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选读物</a>
+        	</li>
+        	<li>
+          		<a href="javascript:searchProductsFromTrust(492, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">杂志期刊</a>
+        	</li>
+        	<li>
+          		<a href="#reader_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        	</li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" class="container">
+    
+  </div>
+</div>
+
+<div data-role="page" id="page_media_service_detail">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>读物服务详情</h1>
+  </div>
+  <div data-role="content" class="container">
+    
+  </div>
+</div>
+
+<div data-role="page" id="reader_more_operation" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>读者</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        	<li>
+          		<a href="#reader_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选读物</a>
+        	</li>
+        	<li>
+          		<a href="javascript:searchProductsFromTrust(492, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">杂志期刊</a>
+        	</li>
+        	<li>
+          		<a href="#reader_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        	</li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+		<div data-theme="c">
+      <ul data-role="listview"  data-inset="true">
+      	<li>
+          <a href="javascript:openMyList();">
+            <img src="assets/img/itinerary.jpg">    
+            <h2>我的阅读单</h2>
+            <p>我的阅读单包含您的已选服务信息。</p>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:getOrderForReader('','','','');">
+            <img src="assets/img/dianzibingli.png">    
+            <h2>我的订单</h2>
+            <p>您可以在此处查看您的订单信息。</p>
+          </a>
+        </li>
+        
+        <li>
+          <a href="javascript:loadAccountInfo();">
+            <img src="assets/img/more_suggestions.png">    
+            <h2>账户信息</h2>
+            <p>展示您的账号余额、积分等信息。</p>
+          </a>
+        </li>
+         <li>
+          <a href="javascript:alert('调用微信服务');">
+            <img src="assets/img/more_suggestions.png">    
+            <h2>互动交流</h2>
+            <p>您可以与作者直接交流。</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+		<ul>
+        		<li>
+          			<a href="#reader_search_service" class="student_data ui-btn-active ui-state-persist">读者</a>
+        		</li>
+        		<li>
+          			<a href="#writer_data" class="doctor_data">作者</a>
+        		</li>
+        		<li>
+          			<a href="#editor_data" class="agent_data">期刊杂志</a>
+        		</li>
+      		</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="reader_my_itinerary" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>读者</h1>
+    <a href="javascript:clearMyList();" data-icon="delete" data-theme="b">清空阅读单</a>
+    <div data-role="navbar" class="nav-glyphish-example">
+       <ul>
+        	<li>
+          		<a href="#reader_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选读物</a>
+        	</li>
+        	<li>
+          		<a href="javascript:searchProductsFromTrust(492, '', '', 1, 10);" class="customer_my_itinerary" data-icon="custom" data-theme="c">杂志期刊</a>
+        	</li>
+        	<li>
+          		<a href="#reader_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        	</li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" data-theme="c" style="text-align:center" class="container">
+  	<div class="tipDiv" style="display:none;">
+  		<span>您的阅读单空空如也，快去</span>
+  		<a href='#reader_search_service'>自选读物</a>
+  		<span>吧!</span>
+  	</div>
+  	<div class="contentDiv" data-role="collapsible-set">
+    	
+	</div>
+	
+	<span class="totalSpan">费用合计： <span class="totalMoney"></span>元</span>
+	<a href="javascript:submitOrder();" class="submitOrder" data-role="button" data-theme="b">确认下单</a>
+	
+  </div>
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+		<ul>
+        		<li>
+          			<a href="#reader_search_service" class="student_data ui-btn-active ui-state-persist">读者</a>
+        		</li>
+        		<li>
+          			<a href="#writer_data" class="doctor_data">作者</a>
+        		</li>
+        		<li>
+          			<a href="#editor_data" class="agent_data">期刊杂志</a>
+        		</li>
+      		</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="reader_order_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>我的订单</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr style="display:none;">
+				<th>服务名称：</th>
+				<td>
+					<input class="customer_order_service_name" name="customer_order_service_name" placeholder="支持模糊查询" type="text">
+					
+				</td>
+			</tr>
+			<tr>
+				<th>起始日期：</th>
+				<td>
+					<input class="customer_order_confrim_from_date" name="customer_order_confrim_from_date" type="date">
+				</td>
+			</tr>
+            <tr>
+				<th>终止日期：</th>
+				<td>
+					<input class="customer_order_confrim_to_date" name="customer_order_confrim_from_date" type="date">
+				</td>
+			</tr>
+			<tr>
+				<th>订单状态：</th>
+				<td>
+					<select name="customer_order_state" data-role="select" data-inline="true" data-native-menu="true">
+                        <option value="-1">全部</option>
+						<option value="0">未确认</option>
+						<option value="1">已确认</option>
+						<option value="2">已完成</option>
+						<option value="3">未完成</option>
+					</select>
+					&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+				</td>
+			</tr>
+		</table>
+       <table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:30%">下单日期</th>
+					<th style="width:20%">订单状态</th>
+					<th style="width:20%">总费用</th>
+					<th style="width:30%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tb_list_tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+     <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+		<ul>
+        		<li>
+          			<a href="#reader_search_service" class="student_data ui-btn-active ui-state-persist">读者</a>
+        		</li>
+        		<li>
+          			<a href="#writer_data" class="doctor_data">作者</a>
+        		</li>
+        		<li>
+          			<a href="#editor_data" class="agent_data">期刊杂志</a>
+        		</li>
+      		</ul>
+     </div>
+</div>
+</div>
+
+<div data-role="page" id="reader_order_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>订单详情</h1>
+  </div>
+   <div data-role="content" class="container">
+   	
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+	<ul>
+        		<li>
+          			<a href="#reader_search_service" class="student_data ui-btn-active ui-state-persist">读者</a>
+        		</li>
+        		<li>
+          			<a href="#writer_data" class="doctor_data">作者</a>
+        		</li>
+        		<li>
+          			<a href="#editor_data" class="agent_data">期刊杂志</a>
+        		</li>
+      		</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="writer_order_list">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>订单列表</h1>
+    
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#writer_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#writer_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+        <li>
+          <a href="Toast('调用微信服务进行通信', 2000);" class="doctor_patient_comunication" data-icon="custom" data-theme="c">互动交流</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div data-role="content">
+		<div style="padding:10px 10px 10px 10px;">
+		<table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:20%">使用时间</th>
+					<th style="width:25%">服务名称</th>
+					<th style="width:25%">票种名称</th>
+					<th style="width:12%">费用</th>
+					<th style="width:18%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+		</div>
+  </div>  
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data ui-btn-active ui-state-persist">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="page_media_service_buy">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>加入阅读单</h1>
+  </div>
+  <div data-role="content" class="container">
+  </div>
+  <a href="javascript:void(0);" data-role="button" data-theme="b" class="addToItinerary">加入阅读单</a>
+</div>
+
+<div data-role="page" id="writer_data" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    <h1>作者</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#writer_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#writer_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+        <li>
+          <a href="Toast('调用微信服务进行通信', 2000);" class="doctor_patient_comunication" data-icon="custom" data-theme="c">互动交流</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+ <div data-role="content" style="padding-left:10px;">
+		<div>
+				<table style="width:100%">
+					<tbody>
+						<tr>
+							<th>
+								产品名称：
+							</th>
+							<td>
+								<input class="productName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								票种名称：
+							</th>
+							<td>
+								<input class="itemName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								起始日期：
+							</th>
+							<td>
+								<input class="company_order_fromDate" type="date">
+							</td>
+							
+							
+						</tr>
+						<tr>
+							<th>
+								终止日期：
+							</th>
+							<td>
+								<input class="company_order_toDate" type="date">
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			<a  href="javascript:getOrderItemsForWriter();" data-role="button" data-theme="b">检索订单</a>
+		</div>
+	
+  </div>  
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data ui-btn-active ui-state-persist">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="writer_service_manager" data-close-btn="right" data-overlay-theme="e">
+	 <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>供应商</h1>
+    
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#writer_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#writer_service_manager" class="doctor_service_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+        <li>
+          <a href="Toast('调用微信服务进行通信', 2000);" class="doctor_patient_comunication" data-icon="custom" data-theme="c">互动交流</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div data-role="content">
+		<div data-theme="c">
+      <ul data-role="listview"  data-inset="true">
+        <li>
+          <a href="javascript:getProductsByProductNameAndComNameWithJson()">
+            <img src="assets/img/dianzibingli.png">    
+            <h2>发布读物服务</h2>
+            <p>您可以发布读物服务供购买者查询。</p>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:openPublishedProduct();">
+            <img src="assets/img/biaojiwu.png">    
+            <h2>读物服务列表</h2>
+            <p>展示您已发布的读物服务。</p>
+          </a>
+        </li>
+       <li>
+          <a href="javascript:openAuditList();">
+            <img src="assets/img/more_suggestions.png">    
+            <h2>服务许可确认</h2>
+            <p>您可以对您被申请的服务进行确认。</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data ui-btn-active ui-state-persist">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="writer_publish_service">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+		<h1>读物服务发布</h1>
+		<a href="#writer_service_manager" data-icon="info" data-theme="b">服务管理</a>
+	</div>
+	<div data-role="content" class="container">
+		<div style="margin-top:5px;">
+			<table>
+				<tr>
+					<td><input type="search" class="keyword"></input></td>
+					<td><a href="javascript:searchProductFromTrust();" style="padding-left:10px;">搜索</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="table_container">
+		</div>
+		
+  </div>  
+</div>
+
+<div data-role="page" id="writer_service_list">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+		<h1>读物服务列表</h1>
+	</div>
+	<div data-role="content" class="container">
+		
+  </div>  
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+	<div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data ui-btn-active ui-state-persist">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+   </div>
+</div>
+
+<div data-role="page" id="writer_service_audit_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>许可申请列表</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr>
+				<th>服务名称：</th>
+				<td>
+					<input class="serviceName" placeholder="支持模糊查询" type="text">
+					
+				</td>
+			</tr>
+			<tr>
+				<th>申请企业：</th>
+				<td>
+					<input class="applyName" type="date">
+				</td>
+			</tr>
+			<tr>
+				<th>起始日期：</th>
+				<td>
+					<input class="applyDate" type="date">
+				</td>
+			</tr>
+		</table>
+        <table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:30%">服务名称</th>
+					<th style="width:25%">申请人</th>
+					<th style="width:20%">申请日期</th>
+					<th style="width:15%">状态</th>
+					<th style="width:10%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data ui-btn-active ui-state-persist">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="editor_data" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    <h1>期刊杂志</h1>
+  </div>
+   <div data-role="content">
+       <div data-theme="c">
+			<ul data-role="listview"  data-inset="true">
+				<li>
+					<a href="javascript:displayProductFromTrustForHub();">
+					<img src="assets/img/system_suggestion.png">    
+					<h2>申请组合服务</h2>
+					<p>您可以组合多种读物服务形成杂志或期刊。</p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:openPackageList();">
+					<img src="assets/img/xyyy1.jpg">    
+					<h2>组合服务列表</h2>
+					<p>展示您已发布的杂志和期刊。</p>
+					</a>
+				</li>
+				
+			</ul>
+		</div>
+  </div>
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data ui-btn-active ui-state-persist">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="editor_service_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>组合服务列表</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr>
+				<th>服务名称：</th>
+				<td>
+					<input class="hub_publishServiceName" placeholder="支持模糊查询" type="text" />
+					
+				</td>
+			</tr>
+			<tr>
+				<th>发布日期：</th>
+				<td>
+					<input class="hub_publishTime" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<th>服务状态：</th>
+				<td>
+					<select class="hub_service_state" data-role="select" data-inline="true" data-native-menu="true">
+						<option value="0">未申请</option>
+						<option value="1">正在审核</option>
+						<option value="2">通过审核</option>
+						<option value="3">已发布</option>
+					</select>
+					&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+				</td>
+				
+			</tr>
+			
+		</table>
+		<table class="tb_list tb_productList" style="display:none;">
+			<thead>
+				<tr>
+					<th style="width:40%">套票名称</th>
+					<th style="width:25%">发布日期</th>
+					<th style="width:20%">状态</th>
+					<th style="width:15%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example">
+   		<ul>
+        	<li>
+          		<a href="#reader_search_service" class="student_data">读者</a>
+        	</li>
+        	<li>
+          		<a href="#writer_data" class="doctor_data">作者</a>
+        	</li>
+        	<li>
+          		<a href="#editor_data" class="agent_data ui-btn-active ui-state-persist">期刊杂志</a>
+        	</li>
+      	</ul>
+    </div>
+</div>
+</div>
+</body>       

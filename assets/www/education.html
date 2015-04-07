@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+  <title>Cloud Education</title>
+  <link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+  <link href="css/myicon.css" rel="stylesheet" type="text/css"/>
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+  <script src="js/cordova.js" type="text/javascript"></script>
+  <script src="js/plugins/childbrowser.js" type="text/javascript"></script>
+  <script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  <script src="jqmobile/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+  <script src="js/loadingDiv.js" type="text/javascript"></script>
+  <script src="js/commonUtil.js" type="text/javascript"></script>
+  <script src="js/otherLink.js" type="text/javascript"></script>
+  <script src="js/callTrustWebService.js" type="text/javascript"></script>
+  <script src="js/educationUtil.js" type="text/javascript"></script>
+  <script src="js/otherUtil.js" type="text/javascript"></script>
+  <script src="js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
+  <script src="js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
+  <link href="css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
+  <link href="css/mobiscroll.animation-2.5.2.css" rel="stylesheet" type="text/css" />
+  <script src="js/mobiscroll.datetime-2.5.1.js" type="text/javascript"></script>
+  <script src="js/mobiscroll.datetime-2.5.1-zh.js" type="text/javascript"></script>
+  
+  <script src="js/mobiscroll.jqm-2.5.1.js" type="text/javascript"></script>
+  <link href="css/mobiscroll.jqm-2.5.1.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body onload="onPageload()">
+<!-- 可信备案相关div -->
+		<div data-role="page" id="productListFromTrust" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>可信平台备案产品列表</h1>
+  			</div>
+  			<div data-role="content" class="container">
+    			
+  			</div>
+		</div>
+<!-- 产品票种列表页面 -->
+		<div data-role="page" id="productPriceDim" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>选择产品类型</h1>
+  			</div>
+  			<span class="welcome">您可以选择以下类型</span>
+  			<div data-role="content" class="container" style="text-align:center;">
+    
+  			</div>
+  			<a href="javascript:void(0);" class="commit" data-role="button" data-theme="b">下一步</a>
+		</div>
+<!-- 订单支付页面 -->
+		<div data-role="page" id="page_pay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>订单支付</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+  			<a href="#" data-role="button" class="paySubmit" data-theme="b">确认</a>
+		</div>
+		
+		<div data-role="page" id="page_pay_okay">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<h1>完成交易</h1>
+  			</div>
+  			<div data-role="content" class="container" style="text-align:center;">
+  			</div>
+		</div>
+	
+<!-- 账户信息页面 -->
+		<div data-role="page" id="customer_information" data-close-btn="right" data-overlay-theme="e">
+  			<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    			<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>账户信息</h1>
+  			</div>
+   			<div data-role="content" class="container" style="padding:10px 10px;">
+       
+  			</div>
+  			<a href="#" onclick="javascript:alert('修改成功！');" data-role="button" data-theme="b">确认修改</a>
+		</div>
+
+<!-- 服务申请审核页面 -->
+<div data-role="page" id="teacher_service_audit_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>服务许可审核详情</h1>
+  </div>
+   <div data-role="content" class="container">
+	</div>
+	  <div class="operatorDiv">
+	  	  <a href="#" class="agreeButton" data-role="button" data-theme="b">同意</a>
+	  	  拒绝原因：<a href="#" class="disagreeButton">拒绝</a><input type="text" class="reason">
+	  </div>
+</div>
+
+<!-- school发布套票页面 -->
+<div data-role="page" id="school_publish_service" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>申请组合服务</h1>
+    <a href="#" class="publish" data-icon="arrow-r" data-iconpos="right" data-theme="b">发布课程套餐</a>
+  </div>
+   <div data-role="content" class="container">
+  </div>
+</div>
+
+<div data-role="page" id="school_publish_service_second_step" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>课程套餐发布</h1>
+  </div>
+   <div data-role="content" class="container">
+		
+   </div>
+   <a href="#" class="publish" data-role="button" data-theme="b">确认提交</a>
+</div>
+
+<!-- 课程套餐详情页面 -->
+<div data-role="page" id="school_publish_service_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>课程套餐详情</h1>
+  </div>
+   <div data-role="content" class="container">	
+   </div>
+   <a href="#" class="publishAndRecord" data-role="button" data-theme="b">发布并在可信平台备案</a>
+</div>
+
+<!-- 经营商发布服务许可申请页面 -->
+<div data-role="page" id="school_service_apply" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>课程组合许可申请</h1>
+  </div>
+   <div data-role="content" class="container" style="padding:10px 10px;">
+  </div>
+  <a href="#" data-role="button" class="applyButton" data-theme="b">申请许可</a>
+</div>
+
+	<div data-role="page" id="student_search_service" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    <h1>学生</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#student_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选课程</a>
+        </li>
+        <li>
+          <a href="javascript:testSearch();" class="customer_my_itinerary" data-icon="custom" data-theme="c">课程套餐</a>
+        </li>
+        <li>
+          <a href="#student_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" data-theme="c">
+   <div class="select-links">
+      <a href="#" onClick="setCategoryId(1);" data-role="button" data-inline="true">+课件资源</a>
+      <a href="#" onClick="setCategoryId(2);" data-role="button" data-inline="true">+教师资源</a>
+      <a href="#" onClick="setCategoryId(3);" data-role="button" data-inline="true">+实验资源</a>
+      
+	  <input type="hidden" class="categoryId" value="1"></input>
+    </div>
+    <div>
+    	<table class="searchTable">
+      	<tr>
+      		<td width="30%;">
+      			<span class="searchCategoryName">课件查询：</span>
+      		<td>
+      		<td>
+      			<input type="text" class="searchKeyWord" placeholder="请输入关键字"></input>
+      		</td>
+      	</tr>
+      	<tr style="display:none;" class="price">
+      		<td width="30%;">
+      			<span>最高价格：</span>
+      		<td>
+      		<td>
+      			<input type="number" class="searchPrice"></input>
+      		</td>
+      	</tr>
+      </table>
+    </div>
+    <a  href="#" onclick="startSearchProducts();" data-role="button" data-theme="b">搜索</a>
+  </div>
+
+  <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data ui-btn-active ui-state-persist">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="page_education_service_detail">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>教育服务详情</h1>
+  </div>
+  <div data-role="content" class="container">
+    
+  </div>
+</div>
+
+<div data-role="page" id="page_education_service_buy">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>加入课程单</h1>
+  </div>
+  <div data-role="content" class="container">
+  </div>
+  <a href="javascript:void(0);" data-role="button" data-theme="b" class="addToItinerary">加入课程单</a>
+</div>
+
+<div data-role="page" id="page_education_service_list_for_search" style="overflow-x:hidden;overflow-y:auto;">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>教育服务列表</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#student_search_service" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选课程</a>
+        </li>
+        <li>
+          <a href="javascript:testSearch();" class="customer_my_itinerary" data-icon="custom" data-theme="c">课程套餐</a>
+        </li>
+        <li>
+          <a href="#student_more_operation" class="medical_record" data-icon="custom" data-theme="c">更多操作</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" class="container">
+    
+  </div>
+</div>
+
+<div id="education_chose_list_page_demo" style="display:none;">
+			<table class="demo_service_table">
+				<tr>
+					<td rowspan="3" style="width:25%;"><img class="pic" src="" height="80px" width="80px"/></td>
+					<td style="width:50%;"><span style="float:left;"><span class="name"></span></span></td>
+					<td style="width:25%;">
+						<strong class="redfont">￥<span class="price"></span>
+          				<span style="font-size:11px;">起</span>
+          				</strong> 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span class="description"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+          				<img class="kexin" src="assets/img/kexin.png" height="25" width="25"/>  
+          				<img class="baike" height="25" src="assets/img/baike_logo.gif"/>
+					</td>
+					<!-- <td><span class="openLink">查看详情</span></td>-->
+					<td>
+						<span>
+							<img class="call" height="30" src="assets/img/call.jpg"/>
+						
+						</span>
+						<span>
+							<img class="video" height="30" src="assets/img/video.png"/>
+						</span>					
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+<div data-role="page" id="student_my_itinerary" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>学生</h1>
+    <a href="javascript:clearMyList();" data-icon="delete" data-theme="b">清空课程单</a>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#student_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选课程</a>
+        </li>
+        <li>
+          <a href="javascript:testSearch();" class="customer_my_itinerary" data-icon="custom" data-theme="c">课程套餐</a>
+        </li>
+        <li>
+          <a href="#student_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" data-theme="c" style="text-align:center" class="container">
+  	<div class="tipDiv" style="display:none;">
+  		<span>您的课程单空空如也，快去</span>
+  		<a href='#student_search_service'>自选课程</a>
+  		<span>吧!</span>
+  	</div>
+  	<!-- collapsible-set表示折叠组，每次只会打开一个 -->
+  	<div class="contentDiv" data-role="collapsible-set">
+    	
+	</div>
+	
+	<span class="totalSpan">费用合计： <span class="totalMoney"></span>元</span>
+	<a href="javascript:submitOrder();" class="submitOrder" data-role="button" data-theme="b">确认下单</a>
+	
+  </div>
+  <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data ui-btn-active ui-state-persist">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="student_order_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>我的订单</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr style="display:none;">
+				<th>服务名称：</th>
+				<td>
+					<input class="customer_order_service_name" name="customer_order_service_name" placeholder="支持模糊查询" type="text">
+					
+				</td>
+			</tr>
+			<tr>
+				<th>起始日期：</th>
+				<td>
+					<input class="customer_order_confrim_from_date" name="customer_order_confrim_from_date" type="date">
+				</td>
+			</tr>
+            <tr>
+				<th>终止日期：</th>
+				<td>
+					<input class="customer_order_confrim_to_date" name="customer_order_confrim_from_date" type="date">
+				</td>
+			</tr>
+			<tr>
+				<th>订单状态：</th>
+				<td>
+					<select name="customer_order_state" data-role="select" data-inline="true" data-native-menu="true">
+                        <option value="-1">全部</option>
+						<option value="0">未确认</option>
+						<option value="1">已确认</option>
+						<option value="2">已完成</option>
+						<option value="3">未完成</option>
+					</select>
+					&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+				</td>
+			</tr>
+		</table>
+       <table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:30%">下单日期</th>
+					<th style="width:20%">订单状态</th>
+					<th style="width:20%">总费用</th>
+					<th style="width:30%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tb_list_tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data ui-btn-active ui-state-persist">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+
+<div data-role="page" id="student_order_detail" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>订单详情</h1>
+  </div>
+   <div data-role="content" class="container">
+   	
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data ui-btn-active ui-state-persist">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="student_more_operation" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>学生</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#student_search_service" class="customer_search_service" data-icon="custom" data-theme="c">自选课程</a>
+        </li>
+        <li>
+          <a href="" class="customer_my_itinerary" data-icon="custom" data-theme="c">课程套餐</a>
+        </li>
+        <li>
+          <a href="#student_more_operation" class="medical_record ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">更多操作</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content">
+		<div data-theme="c">
+      <ul data-role="listview"  data-inset="true">
+      	<li>
+          <a href="javascript:openMyList();">
+            <img src="assets/img/itinerary.jpg">    
+            <h2>我的课程单</h2>
+            <p>我的课程单包含您的已选服务信息。</p>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:getOrderForStudent();">
+            <img src="assets/img/dianzibingli.png">    
+            <h2>我的订单</h2>
+            <p>您可以在此处查看您的订单信息。</p>
+          </a>
+        </li>
+        <li>
+        	<a href="#basic_education_data">
+            	<img src="assets/img/realtimeHealthData.png">   
+         		<h2>基础数据</h2>
+         		<p>展示您的基础教育数据。</p>
+          	</a>
+       	</li>
+        <li>
+          <a href="javascript:localtest();">
+            <img src="assets/img/shopping_apply.png">    
+            <h2>学习吧</h2>
+            <p>开启您的学习之旅。</p>
+          </a>
+        </li>
+        
+        <li>
+          <a href="javascript:loadAccountInfo();">
+            <img src="assets/img/more_suggestions.png">    
+            <h2>账户信息</h2>
+            <p>展示您的账号余额、积分等信息。</p>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:openVideoSoftware('skype', 'fudancaiyunge', 'video');">
+            <img src="assets/img/more_suggestions.png">
+            <h2>师生视频互动</h2>
+            <p>你可以与教师直接交流。</p>
+          </a>
+        </li>
+         <li>
+          <a href="javascript:openVideoSoftware('skype', 'fudancaiyunge', 'call');">
+            <img src="assets/img/more_suggestions.png">
+            <h2>师生电话互动</h2>
+            <p>你可以与教师直接交流。</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data ui-btn-active ui-state-persist">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="teacher_data" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    <h1>教师</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#teacher_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#teacher_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+         <li>
+          <a href="#teacher_student_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">师生互动</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+ <div data-role="content" style="padding-left:10px;">
+		<div>
+				<table style="width:100%">
+					<tbody>
+						<tr>
+							<th>
+								服务类型：
+							</th>
+							<td>
+								<select name="select-choice-1" id="select-choice-1" data-role="select" data-inline="true" data-native-menu="true">
+									<option value="0">课件</option>
+									<option value="1">教师</option>
+									<option value="2">实验</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								课程名称：
+							</th>
+							<td>
+								<input class="productName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								学生姓名：
+							</th>
+							<td>
+								<input class="studentName" type="text">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								起始日期：
+							</th>
+							<td>
+								<input class="company_order_fromDate" type="text" data-role="datebox">
+							</td>
+							
+							
+						</tr>
+						<tr>
+							<th>
+								终止日期：
+							</th>
+							<td>
+								<input class="company_order_toDate" type="text" data-role="datebox">
+							</td>
+						</tr>
+						
+					</tbody>
+				</table>
+			<a href="javascript:getOrderItemsForTeacher();" data-role="button" data-theme="b">检索订单</a>
+		</div>
+	
+  </div>  
+
+  <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="teacher_order_list">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>订单列表</h1>
+    
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#teacher_data" class="doctor_order_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#teacher_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+        <li>
+          <a href="#teacher_student_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">师生互动</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div data-role="content">
+		<div style="padding:10px 10px 10px 10px;">
+		<table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:20%">使用时间</th>
+					<th style="width:25%">服务名称</th>
+					<th style="width:25%">票种名称</th>
+					<th style="width:12%">费用</th>
+					<th style="width:18%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+		</div>
+  </div>  
+   <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+    <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="teacher_service_manager" data-close-btn="right" data-overlay-theme="e">
+	 <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>教师</h1>
+    
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#teacher_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        </li>
+        <li>
+          <a href="#teacher_service_manager" class="doctor_service_manager ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">服务管理</a>
+        </li>
+        <li>
+          <a href="#teacher_student_comunication" class="doctor_patient_comunication" data-icon="custom" data-theme="c">师生互动</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+	<div data-role="content">
+		<div data-theme="c">
+      <ul data-role="listview"  data-inset="true">
+        <li>
+          <a href="javascript:getProductsByProductNameAndComNameWithJson()">
+            <img src="assets/img/dianzibingli.png">    
+            <h2>发布课程服务</h2>
+            <p>您可以发布课程服务供学生查询。</p>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:localtest1()">
+            <img src="assets/img/biaojiwu.png">    
+            <h2>课程服务列表</h2>
+            <p>展示您已发布的课程服务。</p>
+          </a>
+        </li>
+       <li>
+          <a href="javascript:openAuditList();">
+            <img src="assets/img/more_suggestions.png">    
+            <h2>服务许可确认</h2>
+            <p>您可以对您被申请的服务进行确认。</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+   <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+    <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="teacher_publish_service">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+		<h1>教育服务发布</h1>
+		<a href="#teacher_service_manager" data-icon="info" data-theme="b">服务管理</a>
+	</div>
+	<div data-role="content" class="container">
+		<div style="margin-top:5px;">
+			<table>
+				<tr>
+					<td><input type="search" class="keyword"></input></td>
+					<td><a href="javascript:searchProductFromTrust();" style="padding-left:10px;">搜索</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="table_container">
+		</div>
+		
+  </div>  
+</div>
+
+<div data-role="page" id="teacher_service_list">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+		<h1>教育服务列表</h1>
+	</div>
+	<div data-role="content" class="container">
+		
+  </div>  
+   <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+	 <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+   </div>
+</div>
+
+<div data-role="page" id="teacher_service_audit_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>许可申请列表</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr>
+				<th>服务名称：</th>
+				<td>
+					<input class="serviceName" placeholder="支持模糊查询" type="text">
+					
+				</td>
+			</tr>
+			<tr>
+				<th>申请企业：</th>
+				<td>
+					<input class="applyName" type="date">
+				</td>
+			</tr>
+			<tr>
+				<th>起始日期：</th>
+				<td>
+					<input class="applyDate" type="date">
+				</td>
+			</tr>
+		</table>
+        <table class="tb_list">
+			<thead>
+				<tr>
+					<th style="width:30%">服务名称</th>
+					<th style="width:25%">申请人</th>
+					<th style="width:20%">申请日期</th>
+					<th style="width:15%">状态</th>
+					<th style="width:10%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align:center" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="school_data" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="javascript:gotoHome();" data-icon="home" >彩云阁首页</a>
+    <h1>私塾</h1>
+  </div>
+ <div data-role="content">
+		 <div data-theme="c">
+			<ul data-role="listview"  data-inset="true">
+				<li>
+					<a href="javascript:displayProductFromTrustForHub();">
+					<img src="assets/img/biaojiwu.png">    
+					<h2>申请组合服务</h2>
+					<p>您可以组合多种课程服务形成服务套餐。</p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:openPackageList();">
+					<img src="assets/img/saomiaoluru.png">
+					<h2>组合服务列表</h2>
+					<p>展示您已发布的组合课程服务。</p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:Toast('暂无订单数据', 2000);">
+					<img src="assets/img/dianzibingli.png">    
+					<h2>订单管理</h2>
+					<p>展示并管理用户的订单。</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+  </div>  
+
+  <!--添加下方选项卡-->
+  <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+    <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data ui-btn-active ui-state-persist">私塾</a>
+        </li>
+      </ul>
+    </div>
+</div>
+</div>
+
+<div data-role="page" id="school_service_list" data-close-btn="right" data-overlay-theme="e">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>组合服务列表</h1>
+  </div>
+   <div data-role="content" style="padding:10px 10px;">
+		<table>
+			<tr>
+				<th>服务名称：</th>
+				<td>
+					<input id="hub_publishServiceName" name="hub_publishServiceName" placeholder="支持模糊查询" type="text" />
+					
+				</td>
+			</tr>
+			<tr>
+				<th>发布日期：</th>
+				<td>
+					<input id="hub_publishTime" name="hub_publishTime" type="text" />
+				</td>
+			</tr>
+			<tr>
+				<th>服务状态：</th>
+				<td>
+					<select name="hub_service_state" id="hub_service_state" data-role="select" data-inline="true" data-native-menu="true">
+						<option value="0">未申请</option>
+						<option value="1">正在审核</option>
+						<option value="2">通过审核</option>
+						<option value="3">已发布</option>
+					</select>
+					&nbsp;&nbsp;<a href="#"><span style="font-size:10px;">检索</span></a>
+				</td>
+				
+			</tr>
+			
+		</table>
+		<table class="tb_list tb_productList" style="display:none;">
+			<thead>
+				<tr>
+					<th style="width:40%">套票名称</th>
+					<th style="width:25%">创建日期</th>
+					<th style="width:20%">状态</th>
+					<th style="width:15%">操作</th>
+				</tr>
+			</thead>
+			<tbody class="tbody">
+				
+			</tbody>
+		</table>
+  </div>
+ <div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   <div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+	<ul>
+        <li>
+          <a href="#student_search_service" class="student_data">学生</a>
+        </li>
+        <li>
+          <a href="#teacher_data" class="doctor_data">教师</a>
+        </li>
+        <li>
+          <a href="#school_data" class="agent_data ui-btn-active ui-state-persist">私塾</a>
+        </li>
+      </ul>
+      </ul>
+    </div>
+</div>
+</div>
+<!-- mytest -->
+<div data-role="page" id="page_education_service_list" style="overflow-x:hidden;overflow-y:auto;">
+  <div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    <a href="#" data-icon="back" data-rel="back">返回</a>
+    <h1>我的课程列表</h1>
+    <div data-role="navbar" class="nav-glyphish-example">
+      <ul>
+        <li>
+          <a href="#" class="customer_search_service ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">自选课程</a>
+        </li>
+        <li>
+          <a href="javascript:alert('您尚未订购课程套餐')" class="customer_my_itinerary" data-icon="custom" data-theme="c">课程套餐</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div data-role="content" class="container">
+    
+  </div>
+</div>
+<!-- 教育数据 -->
+<div data-role="page" id="basic_education_data" data-close-btn="right" data-overlay-theme="e" >
+    <div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+        <a href="#" data-icon="back" data-rel="back">返回</a>
+        <h1>教育数据</h1>
+        <div class="ui-grid-b" style="text-align:center">
+            <div class="ui-block-a">
+                <a href="#page_lv_education_select" data-role="button" data-theme="a" data-icon="refresh" data-inline="true" data-mini="true"  onclick="refreshdata()">刷新</a>
+            </div>
+            <div class="ui-block-b">
+                <button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" >系统导入</button>
+            </div>
+            <div class="ui-block-c">
+                <a href="#education_data_user_input" data-role="button" data-theme="c" data-icon="edit" data-inline="true" data-mini="true" >手动输入</a>
+            </div>
+        </div>
+    </div>
+    <div data-role="content" data-theme="c">
+        <div class="ui-grid-a" style="text-align:center">
+            <div class="ui-block-a" >
+                <a href="#" data-rel="popup" data-role="image" data-inline="true">
+                    <img src="assets/img/gender.png" alt="性别" class="ui-li-icon ui-corner-none 2-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/age.png" alt="年龄" class="ui-li-icon ui-corner-none 2-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+              	  性别： <span id="gender"></span>
+            </div>
+            <div class="ui-block-b">
+              	  年龄：<span id="age" ></span>
+            </div>
+        </div>
+        <div class="ui-grid-b" style="text-align:center">
+            <div class="ui-block-a" >
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/xueli.png" alt="学历" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/english.png" alt="英文" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-c">
+                <a href="#" data-rel="popup" data-role="image" data-inline="true" >
+                    <img src="assets/img/occupation.png" alt="职业" class="ui-li-icon ui-corner-none 3-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+                	学历：<span id="xueli"></span>
+            </div>
+            <div class="ui-block-b">
+                	英文：<span id="english"></span>
+            </div>
+            <div class="ui-block-c">
+                	职业：<span id="occupation"></span>
+            </div>
+		</div>
+         <div class="ui-grid-a" style="text-align:center">
+         	<div class="ui-block-a" >
+    	        <a href="#" data-rel="popup" data-role="image" data-inline="true">
+	                <img src="assets/img/hangye.png" alt="行业" class="ui-li-icon ui-corner-none 2-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-b">
+       	    	<a href="#" data-rel="popup" data-role="image" data-inline="true" >
+        	        <img src="assets/img/hobby.png" alt="兴趣" class="ui-li-icon ui-corner-none 2-href-img-in-a-line" width="80px">
+                </a>
+            </div>
+            <div class="ui-block-a">
+            	行业：<span id="hangye"></span>
+   	        </div>
+            <div class="ui-block-b">
+              	 兴趣：<span id="hobby" ></span>
+            </div>
+         </div> 
+        </div>
+</div>
+<div data-role="page" id="education_data_user_input" data-close-btn="right" data-overlay-theme="e">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+		<a href="#" data-icon="back" data-rel="back">返回</a>
+    	<h1>教育相关数据</h1>
+    	<a href="#save_data" data-icon="info"  data-rel="popup" data-position-to="window" data-transition="pop" data-theme="b">保存</a>
+	</div>
+	<div data-role="content" data-theme="c">
+    	<ul data-role="listview" data-inset="true">
+ 			<li>
+        		<a href="javascript:modifyUserInfo('age');">
+          			年龄
+          			<span class="ui-li-aside cem-gray age">21</span>
+        		</a>
+      		</li>
+      		<li>
+        		<a href="#">
+          			性别
+          			<span class="ui-li-aside cem-gray">
+            			<select name="flip_gender" id="flip_gender" data-role="slider" data-mini="true" onchange="modifyUserGender();">
+              				<option value="1">男</option>
+             				<option value="2">女</option>
+            			</select>
+          			</span>
+        		</a>
+     		</li>
+     		<li>
+     			<a href="javascript:modifyUserInfo('hobby');">
+     				兴趣
+     				<span class="ui-li-aside cem-gray hobby">电影</span>
+     			</a>
+     		</li>
+     		<li>
+     			<a href="javascript:modifyUserInfo('degree');">
+        			学历
+        			<span class="ui-li-aside cem-gray degree">本科</span>
+        		</a>
+      		</li>
+  			<li>
+  				<a href="javascript:modifyUserInfo('english');">
+    				英文水平
+    				<span class="ui-li-aside cem-gray english"></span>
+    			</a>
+    		</li>
+      		<li>
+        		<a href="javascript:modifyUserInfo('occupation');">
+          			职业
+          			<span class="ui-li-aside cem-gray occupation"></span>
+        		</a>
+      		</li>
+      		<li>
+      			<a href="javascript:modifyUserInfo('hangye');">
+        			行业
+        			<span class="ui-li-aside cem-gray hangye"></span>
+        		</a>
+      		</li>
+   		</ul>
+ 	</div>
+	<div data-role="popup" id="save_data" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+    	<h3>是否要保存教育数据?</h3>
+    	<div class="ui-grid-a" style="text-align:center">
+    		<div class="ui-block-a">
+    			<a href="#basic_education_data" data-role="button" data-theme="b"  data-icon="check" data-inline="true" data-mini="true" onclick="javascript:savedata();">确认</a>
+       		</div>
+        	<div class="ui-block-b">
+        		<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+        	</div>
+      	</div>
+    </div>
+</div>
+<!-- 编辑对话框 -->
+<div id="page_edit_property" data-role="dialog" data-theme="c">
+  	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+   		<a href="#" data-icon="back" data-rel="back">返回</a>
+ 		<h1 class="title"></h1>
+	</div>
+	<div data-role="content" data-theme="c">
+ 		<input type="text" class="value" />
+  		<span class="description"></span>
+  		<a href="#" data-role="button" class="save" data-theme="b">保存</a>
+	</div>
+</div>
+<!-- 师生互答 -->
+<div data-role="page" id="teacher_student_comunication" data-close-btn="right" data-overlay-theme="e">
+	<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    	<a href="javascript:gotoHome();" data-icon="home">彩云阁首页</a>
+    	<h1>教师</h1>
+    	<div data-role="navbar" class="nav-glyphish-example">
+      		<ul>
+        		<li>
+          			<a href="#teacher_data" class="doctor_order_manager" data-icon="custom" data-theme="c">订单管理</a>
+        		</li>
+        		<li>
+          			<a href="#teacher_service_manager" class="doctor_service_manager" data-icon="custom" data-theme="c">服务管理</a>
+        		</li>
+         		<li>
+          			<a href="#teacher_student_comunication" class="doctor_patient_comunication ui-btn-active ui-state-persist" data-icon="custom" data-theme="c">师生互动</a>
+        		</li>
+      		</ul>
+    	</div>
+ 	</div>
+   	<div data-role="content">
+   		<ul data-role="listview" data-split-icon="gear" data-split-theme="d" data-inset="true">
+    		<li>
+      			<a href="#">
+       				<img src="assets/img/customer1.jpg">
+       				<h2>卞景浩</h2>
+       				<p>服务：晨鸟移动平台</p>
+      			</a>
+      			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+    		</li>
+      		<li>
+      			<a href="#">
+       				<img src="assets/img/customer2.jpg">
+       				<h2>陈昊</h2>
+       				<p>服务：信息化思维课件</p>
+      			</a>
+      			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+    		</li>
+    		<li>
+      			<a href="#">
+       				<img src="assets/img/customer3.jpg">
+       				<h2>张宓</h2>
+       				<p>服务：晨鸟移动平台</p>
+      			</a>
+      			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+    		</li>
+    		<li>
+      			<a href="#">
+       				<img src="assets/img/customer4.jpg">
+       				<h2>周为伟</h2>
+       				<p>服务：晨鸟电子商务沙盘体验系统</p>
+      			</a>
+      			<a href="#toAnswer" data-rel="popup" data-position-to="window" data-transition="pop">回复</a>
+    		</li>
+    	</ul>
+    	<div data-role="popup" id="toAnswer" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+  			<h3>立即回复该咨询?</h3>
+    		<p>如果学生不在线，系统将留言给学生.请点击确认开始回复。</p>
+    		<div class="ui-grid-a" style="text-align:center">
+    	 		<div class="ui-block-a">
+       				<a href="#page_lv_answer_student" data-role="button" data-theme="b" data-icon="check" data-inline="true" data-mini="true">确认</a>
+      			</div>
+    			<div class="ui-block-b">
+       				<a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true" data-mini="true">取消</a>
+      			</div>
+    		</div>
+    	</div>
+  	</div>
+  	<div data-role="footer" data-position="fixed" data-id="fixedFooterNav" style="text-align: center;" class="ui-footer ui-bar-a ui-footer-fixed slideup" role="contentinfo">
+   		<div data-role="navbar" class="nav-glyphish-example" data-theme="a">
+			<ul>
+        		<li>
+          			<a href="#student_search_service" class="student_data">学生</a>
+        		</li>
+        		<li>
+          			<a href="#teacher_data" class="doctor_data ui-btn-active ui-state-persist">教师</a>
+        		</li>
+        		<li>
+          			<a href="#school_data" class="agent_data">私塾</a>
+        		</li>
+      		</ul>
+    	</div>
+	</div>
+</div>
+<!-- 师生咨询 -->
+<div data-role="page" id="page_lv_answer_student">
+  	<div data-role="header" data-position="inline" data-id="fixedHeaderNav1">
+   		<a href="#" data-icon="back" data-rel="back">返回</a>
+   		<h1>回复咨询</h1>
+   		<a href="#student_history_data" data-icon="info" data-theme="b">学习记录</a>
+	</div>
+	<div data-role="content" style="padding:0px 0px;">
+    	<div>
+      		<table class="jilu" style="" >
+      			<colgroup>
+      				<col width="80"></col>
+      				<col width="180"></col>
+      				<col width="80"></col>
+      			</colgroup>
+      			<tr>
+      				<td>
+      					<img src="assets/img/customer3.jpg" width="50" />
+      				</td>
+      				<td>
+      					<div class="time">
+      						2014-8-7  下午3:25
+      					</div>
+      					<div class="zuo_src">
+      						<p>老师您好，晨鸟移动平台是用来做什么的呢？</p>
+      					</div>
+      					<div style="clear:both;"></div>
+      				</td>
+      				<td></td>
+      			</tr>
+      			<tr>
+      				<td>
+      				</td>
+      				<td>
+      					<div class="time">
+      						2014-8-7  下午5:25
+      					</div>
+      					<div class="you_src" style="background-size:180px 60px;height:70px;	">
+      						<p>该平台是为了培养学生再新时代环境下的动手能力，实验能力你，依托晨鸟公司的先进技术，实现的智能化教学平台。</p>
+      					</div>
+      					<div style="clear:both;"></div>
+      				</td>
+      				<td>
+      					<img class="self" src="" width="50" />
+      				</td>
+      			</tr>
+      			<tr>
+      				<td>
+      					<img src="assets/img/customer3.jpg" width="50" />
+      				</td>
+      				<td>
+      					<div class="time">
+      						2014-8-8  下午3:25
+      					</div>
+      					<div class="zuo_src">
+      						<p>老师您好，我今天在使用时出了些问题。</p>
+      					</div>
+      					<div style="clear:both;"></div>
+      				</td>
+      				<td></td>
+      			</tr>
+      			<tr>
+      				<td>
+      				</td>
+      				<td>
+      					<div class="time">
+      						2014-8-8  下午5:25
+      					</div>
+      					<div class="you_src">
+      						<p>有什么问题呢？</p>
+      					</div>
+      					<div style="clear:both;"></div>
+      				</td>
+      				<td>
+      					<img class="self" src="" width="50" />
+      				</td>
+      			</tr>
+      		</table>
+      		<div style="float:right">
+        		<textarea cols="40" class="mymessage" rows="3" name="textarea"  placeholder="请输入回复信息" data-inline="true"></textarea>
+      		</div>
+      		<div style="float:right">
+        		<a href="#" data-role="button" data-theme="b" data-inline="true" data-mini="true" onclick="submittext()">发送</a>
+      		</div>
+    	</div>
+    </div>
+</div>
+<!-- 学习记录 -->
+<div data-role="page" id="student_history_data">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav1">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>学习记录</h1>
+		</div>
+		<div data-role="content" data-theme="c" style="text-align:center">
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider">
+					学习日期：2014年7月26日，周五
+					<span class="ui-li-count">1</span>
+				</li>
+				<li>
+					<h3>服务名称：（实验）移动电子商务平台</h3>
+					<p>学生反馈：新版电子商务平台体验效果很好</p>
+					<p>教师建议：平时应该经常实践。</p> 
+				</li>
+      
+				<li data-role="list-divider">
+					学习日期：2014年7月22日，周一
+					<span class="ui-li-count">2</span>
+				</li>
+				<li>
+					<h3>服务名称：（教师）信息化思维</h3>
+					<p>课程进度：<span>65%</span></p>
+					<p>学生反馈：老师讲得比较认真。</p>
+					<p>教师建议：将信息化思维充分运用到生活中，增强理解。</p>
+				</li>
+				<li data-role="list-divider">
+					学习日期：2014年11月25日，周二
+					<span class="ui-li-count">3</span>
+				</li>
+				<li>
+					<h3>服务名称：（课件）电子商务概论课件</h3>
+					<p>课程进度：<span>75%</span></p>
+					<p>学生反馈：老师讲得比较认真，概念新颖，但有的地方还不是很清楚。</p>
+					<p>教师建议：希望你掌握下一代电子商务的核心。</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>       

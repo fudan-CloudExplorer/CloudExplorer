@@ -1,0 +1,29 @@
+.promptumenu_nav{
+	z-index: 5;
+	position: absolute;
+	bottom:5px;
+	left: 50%;
+	margin-right: -50%;
+}
+.promptumenu_window{
+	cursor: move;
+	border-radius: 15px;
+	-webkit-border-radius: 15px;
+	position: relative;
+}
+.promptumenu_nav a{
+	cursor: pointer;
+	width: 12px;
+	height: 12px;
+	text-indent: -9999px;
+	outline: none;
+	background: url(pagination1.png) 0 0 no-repeat;
+	display: block;
+	float: left;
+	position: relative;
+	left: -50%;
+	margin: 0 2px;
+}
+.promptumenu_nav a.active{
+	background: url(pagination2.png) 0 0 no-repeat;
+}

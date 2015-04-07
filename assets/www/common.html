@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  		<meta charset="utf-8">
+  		<link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<!-- 注意：通过loadPage导入的页面不能包含data-role="page"的div，否则无法成功 -->
+	<body>
+		<!-- 产品列表页面中每一个产品的模板 -->
+		<div id="chose_list_page_demo" style="display:none;">
+			<table class="demo_service_table">
+				<tr>
+					<td rowspan="3" style="width:25%;"><img class="pic" src="" height="80px" width="80px"/></td>
+					<td style="width:50%;"><span style="float:left;"><span class="name"></span></span></td>
+					<td style="width:25%;">
+						<strong class="redfont">￥<span class="price"></span>
+          				<span style="font-size:11px;">起</span>
+          				</strong> 
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span class="description"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+          				<img class="kexin" src="assets/img/kexin.png" height="25" width="25"/>  
+          				<img class="baike" height="25" src="assets/img/baike_logo.gif"/>
+					</td>
+					<td><span class="openLink">查看详情</span></td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- 可信备案相关div -->
+		<div id="productListFromTrustDemo" style="display:none;">
+			<table class="demo_table_for_trust">
+				<tr>
+					<td colspan="2" style="text-align:center;">
+						<span class="name"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="font-weight:bold;">发布企业：</span><span class="company"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<span style="font-weight:bold;">供应企业：</span><span class="manufacturer"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span style="font-weight:bold;">备案日期：</span><span class="date"></span>
+					</td>
+					<td><span class="openLink">查看详情</span></td>
+				</tr>
+			</table>
+		</div>
+		<!-- 可信相关结束 -->
+		
+		<!-- 产品详情页面 -->
+		<div id="detail_list_page_for_search" data-close-btn="right" data-overlay-theme="e">
+  			<div data-role="header" data-theme="b">
+    			<h1></h1>
+  			</div>
+  			<div data-role="content">
+    			<div class="item-temp">
+      				<img class="pic" src="" width="100%"/>
+      				<h3>
+      					<span class="name" style="float:left;padding-left:15px;"></span>
+      					<strong class="redfont" style="float:right;padding-right:15px;">
+      						<span class="price"></span><span class="money">元</span>
+        				</strong>
+      				</h3>
+       
+      				<p class="description" style="clear:both;padding-left:8px;padding-right:8px;"></p>
+      				<table style="clear:both;" class="tb_list">
+          				<tbody class="search_tbody">
+          	  				<tr>
+          		  				<td class="title">供应商：</td>
+          		  				<td class="provider"></td>
+          	  				</tr>
+          	  				<tr class="payMethod">
+          		  				<td class="title">支付方式：</td>
+          		  				<td class="paymentMethod"></td>
+          	  				</tr>
+          	  				<tr class="contactAddressTr" style="display:none;">
+          		  				<td class="title">联系地址：</td>
+          		  				<td class="contactAddress"></td>
+          	  				</tr>
+          	  				<tr class="contactNumberTr" style="display:none;">
+          		  				<td class="title">联系电话：</td>
+          		  				<td class="contactNumber"></td>
+          	  				</tr>
+          				</tbody>
+      				</table>
+      
+      				<table class="search_table" style="display:none;">
+          				<tbody>
+          					<tr class="search_tbody_td_demo">
+          						<td class="title"></td>
+          						<td class="value"></td>
+          					</tr>
+          				</tbody>
+      				</table>
+
+      				<a href="javascript:void(0);" data-role="button" class="addToItinerary" data-theme="b">立即抢购</a>
+    			</div>
+  			</div>
+		</div>
+		
+		<!-- 票中选择页面demo -->
+		<div id="productPriceDimDemo" style="display:none;">
+			<table class="demo_table">
+				<thead>
+					<tr>
+						<th style="width:15%">选择</th>
+						<th style="width:65%">名称</th>
+						<th style="width:20%">价格</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="demo_tr" style="display:none;">
+						<td>
+							<input type="radio" class="custom" name="priceDimType"/>
+						</td>
+						<td>
+							<span class="name"></span>
+						</td>
+						<td>
+							<strong class="redfont">￥
+								<span class="price"></span>
+							</strong>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 产品购买页面demo -->
+		<div id="page_product_service_buy_demo">
+			<div data-role="content" class="container">
+				<div class="demo">
+  					<table>
+  						<tr>
+  							<td class="mytd">服务名称：</td>
+  							<td class="buyTd"><span class="productName"></span></td>
+  						</tr>
+  						<tr>
+  							<td class="mytd">票种类型：</td>
+  							<td class="buyTd"><span class="priceDimName"></span></td>
+  						</tr>
+  						<tr>
+  							<td class="mytd">服务单价：</td>
+  							<td class="buyTd"><span class="productPrice"></span>元</td>
+  						</tr>
+  						<tr>
+  							<td class="mytd">使用日期：</td>
+  							<td class="buyTd">
+  								<input type="date" name="productUseDate" class="productUseDate" placeholder="请选择日期"></input>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td class="mytd">服务数量：</td>
+  							<td class="buyTd">
+  								<table>
+  									<tr>
+  										<td><a href="#" class="productNumberMinus" data-role="button" data-icon="minus" data-iconpos="notext"></a></td>
+  										<td><input type="number" name="productNumber" class="productNumber" value="1" size="2"/></td>
+  										<td><a href="#" class="productNumberAdd" data-role="button" data-icon="Plus" data-iconpos="notext"></a></td>
+  									</tr>
+  								</table>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td class="mytd">服务总价：</td>
+  							<td class="buyTd"><span class="productTotalPrice"></span>元</td>
+  						</tr>
+  					</table>
+  				</div>
+  			</div>
+		</div>
+		
+		<!-- 改进版**单产品divdemo -->
+		<div id="itinerary_divDemo">
+			<div class="divDemo" style="margin-bottom:10px;">
+				<div style="background:rgb(153,153,204);text-align: center;padding: 6px;margin-top:5px;margin-left:10px;margin-right:10px;">
+  					<span class="useDate" style="color: #F5F2F2;">2014-10-29</span>
+				</div>
+				<div class="tableContainer">
+				</div>
+			</div>
+		</div>
+		
+		<!-- 改进版**单产品tabledemo -->
+		<div id="itinerary_tableDemo">
+			<table class="tableDemo" style="width:100%;border-bottom: 1px solid #2D2D2A;">
+				<tr>
+					<td rowspan="3" style="width:25%;"><img class="pic" src="" style="width:100%;min-height:75px;max-height:85px;"/></td>
+					<td colspan="2" style="padding-left:5px;">
+						<strong><span class="productName" style="font-size:16px;">上海杜莎夫人蜡像馆</span></strong>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:50%;"><span style="float:left;padding-left:5px;">
+						<span class="ticketName">成人票</span>
+					</td>
+					<td style="float:right;padding-right:10px;">
+						<strong class="redfont">￥<span class="productPrice">100.0</span>
+          				</strong> 
+          				x<span class="quantity">1</span>
+					</td>
+					
+				</tr>
+				<tr>
+					<td>
+						<table style="float:left;padding-left:5px;margin-top:-10px;">
+  							<tr>
+  								<td><a href="javascript:void(0);" class="productNumberMinus" data-role="button" data-icon="minus" data-iconpos="notext"></a></td>
+  								<td><input type="number" class="productNumber" size="2"/></td>
+  								<td><a href="javascript:void(0);" class="productNumberAdd" data-role="button" data-icon="Plus" data-iconpos="notext"></a></td>	
+  							</tr>
+  						</table>
+  					</td>
+  					<td>
+  						<span style="float:right;padding-right:10px;margin-top:-10px;">
+							<a href="javascript:void(0);" class="deleteItem" data-role="button" data-icon="delete" data-iconpos="right">删除</a>
+						</span>
+  					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- **单页面列表demo -->
+		<div id="itemDivDemo">
+			<div data-role="collapsible" data-collapsed="false" class="itemDiv" style="display:none;">
+　 				<h3 class="itemDivH">
+					<span class="productName" style="float:left;padding-left:10px;"></span>
+					<span style="float:right;padding-right:20px;">
+						单项总计：<span class="productTotalPrice redfont"></span>元  
+					</span>
+				</h3>
+　 				<p>
+					<table>
+						<tr>
+							<td>使用日期：</td>
+							<td><span class="productUseDate"></span></td>
+						</tr>
+						<tr>
+							<td>票种类型：</td>
+							<td><span class="priceDimName"></span></td>
+						</tr>
+						<tr>
+							<td>商品单价：</td>
+							<td><span class="productPrice"></span>元</td>
+						</tr>
+						<tr>
+							<td>购买数量：</td>
+							<td>
+								<table>
+  									<tr>
+  										<td><a href="javascript:void(0);" class="productNumberMinus" data-role="button" data-icon="minus" data-iconpos="notext"></a></td>
+  										<td><input type="number" class="productNumber" size="2"/></td>
+  										<td><a href="javascript:void(0);" class="productNumberAdd" data-role="button" data-icon="Plus" data-iconpos="notext"></a></td>
+  										<td>
+  											<span style="float:right;">
+												<a href="javascript:void(0);" class="deleteItem" data-role="button" data-icon="delete" data-iconpos="right">删除</a>
+											</span>
+  										</td>
+  									</tr>
+  								</table>
+							</td>
+						</tr>
+					</table>
+				</p>
+			</div>
+		</div>
+		
+		<!-- 支付页面tabledemo -->
+		<div id="pay_page_table_demo">
+			<table class="demo_table">
+  				<tr>
+  					<td width="70px">顾客姓名:<td>
+  					<td>
+  						<input type="text" id="travellerName" readonly="readonly" value="卞景浩"></input>
+  					</td>
+  					<td><a href="javascript:changeConsumerInfo();" style="float:right;">非本人</a></td>
+  				<tr>
+  				<tr>
+  					<td width="70px">联系电话:<td>
+  					<td><input type="number" id="travellerMobile" readonly="readonly" value="15201823472"></input></td>
+  				<tr>
+  				<tr>
+  					<td width="70px">支付金额:<td>
+  					<td><span class="paynumber redfont"></span>元</td>	
+  				<tr>
+  				<tr>
+  					<td width="70px">支付方式:<td>
+  					<td>
+  						<select id="selcard" name="selcard" data-native-menu="true" data-theme="c" data-mini="true">
+          					<option value="1" selected>网上银行</option>
+          					<option value="2">支付宝</option>
+          					<option value="3">财付通</option>
+        				</select>
+					</td>
+  				<tr>
+  				<tr>
+  					<td width="70px">支付卡号:<td>
+  					<td><input type="text" name="accountno" id="accountno" value="134567890" data-mini="true"/></td>
+  				<tr>
+  				<tr>
+  					<td width="70px">支付密码:<td>
+  					<td><input type="password" name="scode" id="scode" value="123456" data-mini="true" /></td>
+  				<tr>
+  			</table>
+		</div>
+		
+		<!-- 支付完成页面demo -->
+		<div id="payOk_div_demo" style="display:none;">
+    		<h3>完成交易</h3>
+    		<span>彩云阁将跟踪你的订单</span>
+    		<a href="#" data-role="button" data-theme="b" class="returnToFristPage">返回主页</a>
+    		<a href="#" class="searchOrder" data-role="button" data-theme="b">查看订单</a>
+  		</div>
+  		
+  		<!-- 用户订单列表页面demo -->
+  		<div style="padding:10px 10px;" id="demo_for_order_list">
+			<table>
+				<tr style="text-align: center;display:none;" class="demo_tr">
+					<td><span class="createdDate"></span></td>
+					<td><span class="status"></span></td>
+					<td><span class="totalPrice"></span></td>
+					<td><a href="javascript:void(0);" class="openDetail">查看详情</a></td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- 订单详情页面demo -->
+		<div id="orderDetailDemo" style="display:none;">
+			<table class="orderTableDemo">
+				<tr>
+					<th class="th_class">订单编号：</th>
+					<td>
+						<span class="orderNumber"></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="th_class">下单日期：</th>
+					<td>
+						<span class="createdTime"></span>
+					</td>
+				</tr>
+            	<tr>
+					<th class="th_class">联系人： </th>
+					<td>
+						<span class="travellerName"></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="th_class">联系电话：</th>
+					<td>
+						<span class="travellerMobile"></span>
+					</td>
+				</tr>
+				<tr>
+					<th class="th_class">订单金额：</th>
+					<td>
+						<span class="totalPrice"></span>
+					</td>
+				</tr>
+				<tr style="text-align: center;display:none;" class="tr_demo">
+					<td><span class="productName"></span></td>
+					<td><span class="itemName"></span></td>
+					<td><span class="useDate"></span></td>
+					<td><span class="quantity"></span></td>
+					<td><span class="price"></span></td>
+				</tr>
+			</table>
+      		<table class="tb_list" style="float:left;margin-left:5px;margin-right:5px;width:97%;">
+				<thead>
+					<tr>
+						<th style="width:25%">服务名称</th>
+						<th style="width:25%">票种</th>
+						<th style="width:20%">使用日期</th>
+						<th style="width:10%">数量</th>
+						<th style="width:12%">总金额</th>
+					</tr>
+				</thead>
+				<tbody class="tb_list_demo_tbody">
+				
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 账户信息页面内容demo -->
+		<div id="user_info_demo">
+			<table class="demo_table" style="padding:10px;">
+				<tr>
+					<th>用户名：</th>
+					<td>
+						<input class="customer_user_name" type="text" readonly="true">
+					</td>
+				</tr>
+            	<tr>
+					<th>密码：</th>
+					<td>
+						<input class="customer_user_password" placeholder="可修改密码" type="password">
+					</td>
+				</tr>
+             	<tr>
+					<th>确认密码：</th>
+					<td>
+						<input class="customer_user_password_confrim" type="password">
+					</td>
+				</tr>
+            	<tr>
+					<th>账户等级：</th>
+					<td>
+						<span>白银用户</span>
+					</td>
+				</tr>
+				<tr>
+					<th>备案企业：</th>
+					<td>
+						<span class="companyName"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>账户余额：</th>
+					<td>
+						<span>800元</span>
+					</td>
+				</tr>
+            	<tr>
+					<th>网站积分：</th>
+					<td>
+						<span>1245分</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- 供应商订单列表demo -->
+		<div id="order_list_demo_for_provider">
+			<table class="tb_list" class="display:none;">
+				<tbody>
+					<tr style="text-align: center;display:none;" class="tr_demo">
+						<td><span class="createdDate"></span></td>
+						<td><span class="productName"></span></td>
+						<td><span class="itemName"></span></td>
+						<td><span class="price"></span></td>
+						<td><span class="openLink">确认订单<span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 待审核协议列表trdemo -->
+		<div id="audit_list_tr_demo" style="padding:10px 10px;">
+			<table>
+				<tr style="text-align:center; display:none;" class="tr_demo">
+					<td class="productName"></td>
+					<td class="applyName"></td>
+					<td class="applyDate"></td>
+					<td class="applyStatus"></td>
+					<td><a href="#" class="openDetail">查看</a></td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- 服务申请处理页面table -->
+		<div id="table_demo_of_audit_detail_for_provider">
+       		<table class="audit_detail_demo_table">
+				<tbody>
+					<tr>
+						<th>
+							服务名称：
+						</th>
+						<td class="productName"></td>
+					</tr>
+					<tr>
+						<th>
+							申请人：
+						</th>
+						<td class="applyName"></td>
+					</tr>
+					<tr>
+						<th>
+							申请价格：
+						</th>
+						<td><span class="applyPrice"></span>元</td>
+					</tr>
+					<tr>
+						<th>
+							起始日期：
+						</th>
+						<td class="dateStart"></td>
+					</tr>
+					<tr>
+						<th>
+							结束日期：
+						</th>
+						<td class="dateEnd"></td>
+					</tr>
+					<tr>
+						<th>
+							申请协议：
+						</th>
+						<td class="content"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 经营商发布套票时选择服务页面demo -->
+		<div id="publish_service_demo_for_operator">
+   	   		<div style="margin-top:5px;margin-bottom:5px;text-align:center;">
+   	  			<span style="font-size:18px;font-weight:bold;color:#F00;">已选服务列表</span>
+   	  		</div>
+   	  		<div class="selectedService">
+   	  	  		<span style="font-size:18px;text-align:center;" class="tip">尚未选择服务，请从下方可选服务中选择！</span>
+   	 	 	</div>
+   	  		<div style="margin-top:15px;margin-bottom:5px;text-align:center;">
+   	  			<span style="font-size:18px;color:#F00;font-weight:bold;">可选服务列表</span>
+   	  		</div>
+   	  		<div style="margin-top:3px;">
+				<table>
+					<tr>
+						<td><input type="search" class="keyword"></input></td>
+						<td><a href="#" class="searchA" style="padding-left:10px;">搜索</a></td>
+					</tr>
+				</table>
+			</div>
+   	  		<div class="productServiceList">
+      	
+	 		</div>
+  		</div>
+  		
+  		<div id="demo_for_operator_publish_service_second_step">
+   			<table style="width:100%;padding:10px;">
+				<tbody>
+					<tr>
+						<th width="30%">
+							<span style="color:#F00;">*</span>套餐名称：
+						</th>
+						<td>
+							<input class="hub_serviceName" name="hub_serviceName" type="text" />
+						</td>
+					</tr>
+					<tr>
+						<th width="30%">
+							<span style="color:#F00;">*</span>套餐价格(元)：
+						</th>
+						<td>
+							<input class="hub_servicePrice" name="hub_servicePrice" type="number" />
+						</td>
+					</tr>
+					<tr>
+						<th width="30%">
+							套餐描述：
+						</th>
+						<td>
+							<textarea cols="40" rows="8" name="hub_serviceDescription" class="hub_serviceDescription"></textarea>
+						</td>
+					</tr>
+					<tr style="text-align: center;display:none;" class="tr_demo">
+						<td><span class="productName"></span></td>
+						<td><span class="price"></span></td>
+						<td><span class="manufacturer"></span></td>
+						<td><span class="state"></span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="tb_list" style="width:100%;padding:10px;">
+				<thead>
+					<tr>
+						<th style="width:45%">服务名称</th>
+						<th style="width:15%">价格(元)</th>
+						<th style="width:25%">生产企业</th>
+						<th style="width:15%">状态</th>
+					</tr>
+				</thead>
+				<tbody class="tbody_list">
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 经营商已发布套餐列表demo -->
+		 <div id="tr_demo_of_service_list_for_operator">
+		 	<table>
+				<tr style="text-align: center;display:none;" class="tr_demo">
+					<td class="productName"></td>
+					<td class="publishDate"></td>
+					<td class="productState"></td>
+					<td><a href="#" class="openDetail" style="color:#08C;">查看</a></td>
+				</tr>
+			</table>
+		</div>
+		
+		<!-- 套餐详情页面demo -->
+		<div id="table_demo_of_service_detail_for_operator" style="padding:10px;">
+   			<table class="table_demo_of_service_detail_for_operator">
+				<tbody>
+					<tr>
+						<th>
+							套餐名称：
+						</th>
+						<td>
+							<span class="hub_serviceName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							套餐价格：
+						</th>
+						<td>
+							<span class="hub_servicePrice"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							套餐描述：
+						</th>
+						<td>
+							<span class="hub_serviceDescription"></span>
+						</td>
+					</tr>
+					<tr style="text-align: center;display:none;" class="tr_demo">
+						<td><span class="productName"></span></td>
+						<td><span class="price"></span></td>
+						<td><span class="manufacturer"></span></td>
+						<td><span class="state"></span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="tb_list" style="width:100%;">
+				<thead>
+					<tr>
+						<th style="width:45%">关联服务</th>
+						<th style="width:15%">价格(元)</th>
+						<th style="width:25%">所属企业</th>
+						<th style="width:15%">操作</th>
+					</tr>
+				</thead>
+				<tbody class="tbody_list">
+				</tbody>
+			</table>
+		</div>
+		
+		<!-- 服务许可申请demo -->
+		<div id="demo_for_service_apply">
+       		<table class="demo_table" style="padding:10px;">
+				<tbody>
+					<tr>
+						<th>
+							服务名称：
+						</th>
+						<td>
+							<input type="text" disabled="disabled" class="productName"/>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							供应企业：
+						</th>
+						<td>
+							<input class="providerName" type="text" disabled="disabled" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							申请者：
+						</th>
+						<td>
+							<input class="applyName" type="text" disabled="disabled" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							申请价格：
+						</th>
+						<td>
+							<input class="applyPrice" type="number" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							起始日期：
+						</th>
+						<td>
+							<input class="applyStartDate" type="date" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							结束日期：
+						</th>
+						<td>
+							<input class="applyEndDate" type="date" />
+						</td>
+					</tr>
+					<tr>
+						<th>
+							申请协议：
+						</th>
+						<td>
+							<textArea class="applyProtocol" style="height:50px;"></textArea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</body>
+</html>   

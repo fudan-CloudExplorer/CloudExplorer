@@ -1,0 +1,223 @@
+
+#page_family_tree .main {
+	width:100%;
+	color:#000;
+}
+
+.box {
+	position:relative;
+	background:#FFF;
+	border:#FFF thin solid;
+	border-radius: 2px;
+}
+
+#page_family_tree .top {
+	position:relative;
+	width:100%;
+	height:200px;
+}
+
+#page_family_tree .level1 {
+	height:100%;
+	width:42%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:-6%;
+}
+
+#page_family_tree .level1_name {
+	padding-top:1%;
+	width:100%;
+	text-align:center;
+	font-size:14px;
+	color:black;
+	background-color: #fff;
+}
+
+#page_family_tree .level1_name a {
+	color:black;
+}
+
+#page_family_tree .level1_img {
+	height:89%;
+	width:100%;
+}
+
+.level {
+	position:relative;
+	width:100%;
+	height:200px;
+}
+
+.level_box {
+	width:100%;
+	height:80%;
+	padding:10% 0;
+}
+
+.normal {
+	float:left;
+	width:25%;
+	height:65%;
+	margin-top:2%;
+	margin-left:6%;
+	background:#FFF;
+	border:#FFF thin solid;
+	border-radius: 2px;
+	text-align:center;
+	font-size:12px;
+}
+
+.normal .normal_img {
+	height:87%;
+}
+
+.big {
+	float:left;
+	width:42%;
+	height:100%;
+	margin-top:-6%;
+	margin-left:2%;
+	background:#FFF;
+	border:#FFF thin solid;
+	border-radius: 2px;
+	text-align:center;
+	font-size:14px;
+}
+
+.big .normal_name {
+	margin-top:1%;
+}
+
+.big .normal_name a {
+	color:black;
+}
+
+.big .normal_img {
+	height:89%;
+}
+
+.small {
+	width:20%;
+	height:53%;
+	margin-top:5%;
+	background:#FFF;
+	border:#FFF thin solid;
+	border-radius: 2px;
+	text-align:center;
+	font-size:11px;
+}
+
+.small_left {
+	float:left;
+	margin-left:6%;
+	
+}
+
+.small_right {
+	float:right;
+	margin-right:6%;
+}
+
+.small .normal_img {
+	height:85%;
+}
+
+.index_box {
+	display:none;
+}
+
+.main .desc {
+	position:absolute;
+	top:0%;
+	left:0%;
+	font-size:13px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#FFF;
+}
+
+.line {
+	position:absolute;
+	z-index:0;
+}
+
+.left_line {
+	left:50%;
+	bottom:100%;
+	height:45%;
+	width:168%;
+	border-left:1px #FFF solid;
+	border-top:1px #FFF solid;
+}
+
+.upper_middle_line {
+	display:none;
+	position:absolute;
+	z-index:0;
+	left:50%;
+	width:3%;
+	height:12%;
+	top:100%;
+	border-left:1px #FFF solid;
+}
+
+.right_line {
+	right:50%;
+	bottom:100%;
+	height:45%;
+	width:165%;
+	border-right:1px #FFF solid;
+	border-top:1px #FFF solid;
+}
+
+.middle_line {
+	left:50%;
+	height:64%;
+	width:3%;
+	bottom:100%;
+	border-left:1px #FFF solid;
+}
+
+#page_family_tree .amodel {
+	display:none;
+}
+
+
+.person_info {
+	height:100px;
+	margin-bottom:6%;
+	margin-top:2%;
+}
+
+.person_info_image {
+	border-radius: 2px;
+	float:left;
+}
+
+.person_info_name {
+	float:left;
+	margin-top:20px;
+	margin-left:20px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.person_info_name .name{
+	font-size:20px;
+	font-weight:bold;
+}
+.person_info_name .level {
+	font-size:14px;
+}
+.change {
+	position:absolute;
+	height:30%;
+	width:10%;
+	top:30%;
+}
+
+.left {
+	left:-4%;
+}
+
+.right {
+	right:-4%;
+}

@@ -1,0 +1,847 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.cloudexplorer.org/person#"
+     xml:base="http://www.cloudexplorer.org/person"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://www.cloudexplorer.org/person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasAddressObj -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasAddressObj">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Address"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyInfo -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyInfo">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEducationInfo -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasEducationInfo">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEnvironment -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasEnvironment">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Environment"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasForeignLang -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasForeignLang">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Language"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasGenderObj -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasGenderObj">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Gender"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasJobInfo -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasJobInfo">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#JobInfo"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasMedicalHistory -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasMedicalHistory">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#MedicalHistory"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasMotherLang -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#hasMotherLang">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Language"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#isUserOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.cloudexplorer.org/person#isUserOf">
+        <rdfs:range rdf:resource="http://www.cloudexplorer.org/person#Application"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#AddressProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#AddressProp">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Address"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#ApplicationProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#ApplicationProp"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#EducationProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#EducationProp">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#EnvironmentProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#EnvironmentProp">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Environment"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#JobProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#JobProp"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#MedicalHistoryProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#MedicalHistoryProp">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#MedicalHistory"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasAddress -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasAddress">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Address"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#AddressProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasAnnualSalary -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasAnnualSalary">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasApplicationName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasApplicationName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Application"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#ApplicationProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasApplicationPassword -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasApplicationPassword">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Application"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#ApplicationProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasApplicationUsername -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasApplicationUsername">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Application"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#ApplicationProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBirthday -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBirthday">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyBloodFat -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyBloodFat">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyBloodGlucose -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyBloodGlucose">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyBloodPressure -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyBloodPressure">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyBloodType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyBloodType">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyChestCir -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyChestCir">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyFatRate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyFatRate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyHeartRate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyHeartRate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyHeight -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyHeight">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyHipCir -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyHipCir">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyMeasuredDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyMeasuredDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyProp -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyProp">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyTemperature -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyTemperature">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyWaistCir -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyWaistCir">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasBodyWeight -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasBodyWeight">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasBodyProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasCellPhoneNumber -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasCellPhoneNumber">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasClassmate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasClassmate">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasCurrentMood -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasCurrentMood">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEducationEndDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEducationEndDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEducationMajor -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEducationMajor">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEducationSchool -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEducationSchool">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEducationStartDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEducationStartDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#EducationInfo"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEmail -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEmail">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEnvHumidity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEnvHumidity">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EnvironmentProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEnvPressureIntensity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEnvPressureIntensity">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EnvironmentProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEnvSoundIntensity -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEnvSoundIntensity">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EnvironmentProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasEnvTemperature -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasEnvTemperature">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EnvironmentProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasFamilyRelation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasFamilyRelation">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasFather -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasFather">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasFamilyRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasFriend -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasFriend">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasHomeTel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasHomeTel">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasIDCard -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasIDCard">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasJobEndDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasJobEndDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#JobProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasJobOrganization -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasJobOrganization">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#JobProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasJobStartDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasJobStartDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#JobProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasJobTitle -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasJobTitle">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#JobProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasLabel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasLabel">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasMedicalHistoryDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasMedicalHistoryDate">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#MedicalHistoryProp"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasMedicalHistoryResult -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasMedicalHistoryResult">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#MedicalHistoryProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasMother -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasMother">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasFamilyRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasName -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasPersonality -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasPersonality">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasSocialRelation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasTeacher -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasTeacher">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#EducationProp"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasUUID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasUUID">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasWorkmate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasWorkmate">
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#JobProp"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#hasSocialRelation"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#hasZipcode -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cloudexplorer.org/person#hasZipcode">
+        <rdfs:domain rdf:resource="http://www.cloudexplorer.org/person#Address"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cloudexplorer.org/person#AddressProp"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Address -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Address"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Application -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Application"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#BodyInfo -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#BodyInfo"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#EducationInfo -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#EducationInfo"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Environment -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Environment"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Gender -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Gender"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#JobInfo -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#JobInfo"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Language -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Language"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#MedicalHistory -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#MedicalHistory"/>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Person -->
+
+    <owl:Class rdf:about="http://www.cloudexplorer.org/person#Person"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Female -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#Female">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#Gender"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#Male -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#Male">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#Gender"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#bodyInfo_of_zhangmi -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#bodyInfo_of_zhangmi">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#BodyInfo"/>
+        <hasBodyBloodFat rdf:datatype="&xsd;string">100</hasBodyBloodFat>
+        <hasBodyHeight rdf:datatype="&xsd;string">183.0</hasBodyHeight>
+        <hasBodyMeasuredDate rdf:datatype="&xsd;string">2013-10-15 15:13:23</hasBodyMeasuredDate>
+        <hasBodyWeight rdf:datatype="&xsd;string">75.0</hasBodyWeight>
+        <hasBodyBloodGlucose rdf:datatype="&xsd;string">blucose</hasBodyBloodGlucose>
+        <hasBodyChestCir rdf:datatype="&xsd;string">chest cir</hasBodyChestCir>
+        <hasBodyFatRate rdf:datatype="&xsd;string">fat rate</hasBodyFatRate>
+        <hasBodyHipCir rdf:datatype="&xsd;string">hi cir</hasBodyHipCir>
+        <hasBodyBloodPressure rdf:datatype="&xsd;string">pressure</hasBodyBloodPressure>
+        <hasBodyTemperature rdf:datatype="&xsd;string">temperature</hasBodyTemperature>
+        <hasBodyWaistCir rdf:datatype="&xsd;string">waist cir</hasBodyWaistCir>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#en -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#en">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#Language"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#zh-CN -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#zh-CN">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#Language"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.cloudexplorer.org/person#zhangmi -->
+
+    <owl:NamedIndividual rdf:about="http://www.cloudexplorer.org/person#zhangmi">
+        <rdf:type rdf:resource="http://www.cloudexplorer.org/person#Person"/>
+        <hasGenderObj rdf:resource="http://www.cloudexplorer.org/person#Male"/>
+        <hasBodyInfo rdf:resource="http://www.cloudexplorer.org/person#bodyInfo_of_zhangmi"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+

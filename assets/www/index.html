@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+  	<meta charset="utf-8">
+  	<title>Cloud Explorer</title>
+  	<link href="jqmobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" type="text/css"/>
+  	<link href="css/myicon.css" rel="stylesheet" type="text/css"/>
+  	<link href="css/main.css" rel="stylesheet" type="text/css"/>
+  	<script src="js/cordova.js" type="text/javascript"></script>
+  	<script src="js/barcodescanner.js" type="text/javascript"></script>
+  	<script src="js/plugins/childbrowser.js" type="text/javascript"></script>
+  	<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+  	<script src="jqmobile/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+	<script src="js/myrotate.js" type="text/javascript"></script>
+	<script src="js/camera.js" type="text/javascript"></script>
+	<script src="js/loadingDiv.js" type="text/javascript"></script>
+	<script src="js/amodelUtil.js" type="text/javascript"></script>
+	<script src="js/otherUtil.js" type="text/javascript"></script>
+	<script src="js/main.js" type="text/javascript"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="js/jquery.slide.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/slide.css" />
+	<script type="text/javascript">
+      $(function(){
+        	$('#menu').promptumenu({width:400, height:150, rows: 1, columns: 4, direction: 'horizontal', pages: true}); 
+        	$('#menu2').promptumenu({width:400, height:150, rows: 1, columns: 4, direction: 'horizontal', pages: true});    
+      });
+       
+      function onLoad() {
+          document.addEventListener("deviceready", onDeviceReady, false);
+          var username = window.localStorage.username;
+          var password = window.localStorage.password;
+          	if(username != undefined && username != null && username != "" && password != undefined && password != null && password != "") 
+          	{
+          		$("#account").val(username);
+          		$("#passwordinput").val(password);
+          	}
+          var avatarUrl = window.localStorage.avatorUrl;//如果头像曾经设置过，则显示设置后的头像(包含首页旋转中心处的头像)
+		  if(avatarUrl != undefined && avatarUrl != "")
+		  {
+			 $("#avata-image").attr("src", avatarUrl);
+			 $("#page_buy").find(".routateDiv").css("background-image", "url(" + avatarUrl + ")");
+			 $("#page_buy").find(".routateDiv").css("background-size", "30px 30px");
+			 $("#page_buy").find(".routateDiv").css("background-position", "center");
+			 $("#page_buy").find(".routateDiv").css("background-repeat", "no-repeat");
+		  }
+		  
+		  $("#page_buy").find(".fristPage").css("height", $(document).height()*0.79);
+		  $("#page_buy").find(".app").bind("swipeleft",function(){
+        		swipeLeft();
+    		});
+    	  $("#page_buy").find(".app").bind("swiperight",function(){
+        		swipeRight();
+    		});
+		  doRotate();//控制图片旋转
+		  
+		  $('#page_ps').on('pagebeforeshow',function(e, data) {
+		  	var realname = window.localStorage.realname;
+		  	if(realname == undefined || realname == "")
+		  		$('#page_ps').find(".realname").text("未设置");
+			else
+				$('#page_ps').find(".realname").text(realname);
+			var mobile = window.localStorage.mobile
+		  	if(mobile == undefined || mobile == "")
+		  		$('#page_ps').find(".mobile").text("未设置");
+			else
+				$('#page_ps').find(".mobile").text(mobile);
+			var email = window.localStorage.email;
+		  	if(email == undefined || email == "")
+		  		$('#page_ps').find(".email").text("未设置");
+			else
+				$('#page_ps').find(".email").text(email);
+			var gender = window.localStorage.gender;
+			if(gender == undefined || gender == "")
+		  		$('#flip_gender').val(1);
+			else
+				$('#flip_gender').val(gender);
+			var age = window.localStorage.age;
+		  	if(age == undefined || age == "")
+		  		$('#page_ps').find(".age").text("未设置");
+			else
+				$('#page_ps').find(".age").text(age);
+			var address = window.localStorage.address;
+		  	if(address == undefined || address == "")
+		  		$('#page_ps').find(".address").text("未设置");
+			else
+				$('#page_ps').find(".address").text(address);
+			var degree = window.localStorage.degree;
+		  	if(degree == undefined || degree == "")
+		  		$('#page_ps').find(".degree").text("无");
+			else
+				$('#page_ps').find(".degree").text(degree);
+			var zongjiao = window.localStorage.zongjiao;
+		  	if(zongjiao == undefined || zongjiao == "")
+		  		$('#page_ps').find(".zongjiao").text("无");
+			else
+				$('#page_ps').find(".zongjiao").text(zongjiao);
+			var interest = window.localStorage.interest;
+		  	if(interest == undefined || interest == "")
+		  		$('#page_ps').find(".interest").text("无");
+			else
+				$('#page_ps').find(".interest").text(interest);
+		 });
+		  $('#realtime_health_data_for_soul_update').on('pagebeforeshow',function(e, data) {
+						$('#realtime_health_data_for_soul_update .3-href-img-in-a-line').each(
+								function(index, element) {
+									var width = $(element).parent().parent()
+											.width();
+									if (width < 138) {
+										$(element).css("height", "80px").css(
+												"width", "80px");
+									}
+								});
+						$('#realtime_health_data_for_soul_update .2-href-img-in-a-line').each(
+								function(index, element) {
+									var width = $(element).parent().parent()
+											.width();
+									if (width < 168) {
+										$(element).css("height", "100px").css(
+												"width", "100px");
+									}
+								})
+					});
+    	}
+     	 
+     function onDeviceReady() {
+         document.addEventListener("backbutton", shutdown, false);  
+    	}  
+     var beginDate;          // 两次点击退出按钮开始时间  
+     var isToast = false;    // 是否弹出弹框  
+     // 点击退出按钮  
+     function shutdown() {  
+     	if($.mobile.activePage.attr("id") == "page_buy" || $.mobile.activePage.attr("id") == "page_login"){//判断当前是否回到初始页面
+         	var endDate = new Date().getTime(); // 两次点击退出按钮结束时间  
+         	// 提示过Toast并且两次点击时间小于2S  
+         	if ( isToast && endDate - beginDate < 2000 ) {  
+             	beginDate = endDate;  
+             	isToast = false; 
+             	navigator.app.exitApp();//退出程序
+         	} 
+         	else 
+         		Toast('再次返回退出彩云阁',2000);   
+        	}
+        else
+        {
+        	navigator.app.backHistory();//回退一步
+        	if(loading_div != undefined)
+        		hideLoadingDiv();
+        }
+     }
+    </script>
+</head>
+<body onload="onLoad();" id="body">
+<!-- 登录页面 -->
+	<div data-role="page" id="page_login">
+  		<div data-role="content">
+    		<div class="cem-center" style="width:90%;">
+      			<img src="assets/img/icon.png" alt="logo of cem"/>
+   	 		</div>
+    		<ul data-role="listview" data-inset="true" style="font-size:small">
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="account">帐号:</label>
+          				<input type="text" name="account" id="account" placeholder="CloudExplorer ID/phone/email"/>
+        			</div>
+      			</li>
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="passwordinput">密码:</label>
+          				<input type="password" name="passwordinput" id="passwordinput" />
+        			</div>
+      			</li>
+    		</ul>
+    		<a href="javascript:userLogin();" data-role="button">登录</a>
+    		<div style="float:right;text-align:right;font-size:small">
+      			<br /><br />
+      			<a href="javascript:userRegister();" style="text-decoration:none">现在注册!</a>
+      			<br /><br />
+      			<a href="javascript:clearAllUsedInfo();" style="text-decoration:none">忘记密码!</a>
+    		</div>
+  		</div>
+	</div>
+	
+<!-- 注册页面 -->
+	<div data-role="page" id="page_register">
+  		<div data-role="content">
+    		<div class="cem-center" style="width:90%;">
+      			<img src="assets/img/icon.png" alt="logo of cem"/>
+   	 		</div>
+    		<ul data-role="listview" data-inset="true" style="font-size:small">
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="passwordinput">手机号(用于登录):</label>
+          				<input type="text" name="reg_mobile" id="reg_mobile" placeholder="CloudExplorer mobile phone"/>
+        			</div>
+      			</li>
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="account">姓名:</label>
+          				<input type="text" name="reg_username" id="reg_username" placeholder="CloudExplorer username"/>
+        			</div>
+      			</li>
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="passwordinput">密码:</label>
+          				<input type="password" name="reg_password" id="reg_password" />
+        			</div>
+      			</li>
+      			<li>
+        			<div data-role="fieldcontain">
+          				<label for="passwordinput">确认密码:</label>
+          				<input type="password" name="reg_password_confirm" id="reg_password_confirm" />
+        			</div>
+      			</li>
+    		</ul>
+    		<a href="javascript:registerNewUser();" data-role="button">注册</a>
+    		<div style="float:right;text-align:right;font-size:small">
+      			<!-- <br /><br />
+      			<a href="javascript:clearAccountInfo();" style="text-decoration:none">现在注册!</a>
+      			<br /><br />
+      			<a href="javascript:findMyPassword();" style="text-decoration:none">忘记密码!</a> -->
+    		</div>
+  		</div>
+	</div>
+
+<!-- 彩云阁首页 -->
+	<div data-role="page" id="page_buy" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<h1>服务市场</h1>
+   			<a href="#page_tools" data-icon="search" class="ui-btn-right">发现</a>
+  		</div>
+  		<div data-role="content" class="fristPage" id="fristPage">
+    		<input type="text" id="global_keyword" class="keyword xs" data-role="none" placeholder="输入关键字搜索应用"/>
+    		<a href="javascript:globalSearch();" data-icon="gear" class="ui-btn-right" style="color:#fff;">搜索</a>
+    		<div class="app ui-grid-a" style="margin-top:10px;">
+    			<table class="table1">
+    				<tr>
+    					<td>
+    						<a href="javascript:setCurrentApp('travel');">
+            					<img src="assets/img/beach.png" height="60" width="60"/>
+            					<p class="p">云游</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:setCurrentApp('medical');">
+            					<img src="assets/img/caiyuntianshi.png" height="60" width="60"/>
+            					<p class="p">彩云天使</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:setCurrentApp('education');">
+            					<img src="assets/img/yunsishu1.png" height="60" width="60"/>
+            					<p class="p">云私塾</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:setCurrentApp('media');">
+            					<img src="assets/img/2_structure.png" height="60" width="60"/>
+            					<p class="p">私媒体</p>
+          					</a>
+    					</td>
+    					
+    				</tr>
+    			</table>
+    			<table class="table2" style="display:none;">
+    				<tr>
+    					<td>
+    						<a href="javascript:setCurrentApp('innovation');">
+            					<img src="assets/img/2_structure.png" height="60" width="60"/>
+            					<p class="p">创新园</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:setCurrentApp('tailor');">
+            					<img src="assets/img/sirendingzhi.png" height="60" width="60"/>
+            					<p class="p">私人订制</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:jumpToAmodelPage();">
+            					<img src="assets/img/amodel.png" height="60" width="60"/>
+            					<p class="p">灵魂之都</p>
+          					</a>
+    					</td>
+    					<td>
+    						<a href="javascript:setCurrentApp('worker');" style="display:none;">
+            					<img src="assets/img/kexinyun.png" height="60"/>
+            					<p class="p">伯乐云</p>
+          					</a>
+    					</td>
+    				</tr>
+    			</table>
+    			<div style="text-align:center;width:100%;margin-top:-15px;margin-bottom:5px;">
+    				<img class="dot1" src="assets/img/dot_focus.png" style="width:10px;" onclick="swipeRight()"/>
+    				<img class="dot2" src="assets/img/dot_normal.png" style="width:10px;" onclick="swipeLeft()"/>
+    			</div>
+    		</div>
+    		<div>
+    			<table width="100%">
+    				<tr>
+    					<td>
+    						<div class="routateDiv">
+    							<img alt="" src="assets/img/cloudstudio_new.png" class="routateImage" id="routateImage"/>
+    						</div>
+    					</td>
+    					<td><img alt="" src="assets/img/woshigezhu.png" border="0" class="linghunmoxing" /></td>
+    				</tr>
+    			</table>
+    		</div>
+    		<div class="myTable">
+    			<table width="100%">
+    				<tr>
+    					<td><a href="#page_soul_view"><img alt="" src="assets/img/chakanmoxing.png" border="0"/></a></td>
+    					<td><a href="#page_soul_update"><img alt="" src="assets/img/gengxinmoxing.png" border="0"/></a></td>
+    					<td><a href="#page_soul_application"><img alt="" src="assets/img/linghunyingyong.png" border="0"/></a></td>
+    				</tr>
+    			</table>
+    		</div>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav">
+    		<div data-role="navbar">
+      			<ul>
+        			<li>
+          				<a href="#page_buy" class="ui-btn-active ui-state-persist" data-icon="grid">服务市场</a>
+        			</li>
+        			<li>
+          				<a href="#page_setting"  data-icon="gear">设置</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+	</div>
+
+<!-- 灵魂查看页面 -->
+	<div id="page_soul_view" data-role="page" data-theme="c">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1>灵魂查看</h1>
+  		</div>
+  		<div data-role="content">
+			<div data-theme="d">
+      			<ul data-role="listview"  data-inset="true">
+      				<li>
+          				<a href="javascript:displayAmodelCyble('知识');">
+            				<img src="assets/img/zhishi.jpg">
+            				<h2>知识</h2>
+            				<p>展示灵魂模型之知识维度。</p>
+          				</a>	
+        			</li>
+         			<li>
+          				<a href="javascript:displayAmodelCyble('生理');">
+            				<img src="assets/img/body.jpg">    
+            				<h2>生理</h2>
+            				<p>展示灵魂模型之生理维度。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:displayAmodelCyble('性格');">
+            				<img src="assets/img/xingge.jpg">    
+            				<h2>性格</h2>
+           	 				<p>展示灵魂模型之性格维度。</p>
+          				</a>
+        			</li>
+       				<li>
+          				<a href="javascript:displayAmodelCyble('经历');">
+            				<img src="assets/img/jingli.jpg">    
+            				<h2>经历</h2>
+            				<p>展示灵魂模型之经历维度。</p>
+          				</a>
+        			</li>
+         			<li>
+          				<a href="javascript:displayAmodelCyble('信念');">
+            				<img src="assets/img/xinnian.jpg">    
+            				<h2>信念</h2>
+            				<p>展示灵魂模型之信念维度。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:displayAmodelCyble('环境');">
+            				<img src="assets/img/huanjing.jpg">    
+            				<h2>环境</h2>
+            				<p>展示灵魂模型之环境维度。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+	</div>
+
+<!-- 灵魂应用页面 -->
+	<div id="page_soul_application" data-role="page" data-theme="c">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>灵魂应用</h1>
+ 	 	</div>
+  		<div data-role="content">
+			<div data-theme="c">
+      			<ul data-role="listview" data-inset="true">
+      				<li>
+          				<a href="javascript:jumpToAmodelPage();">
+            				<img src="assets/img/linghunwuhua.jpg">    
+            				<h2>灵魂之都</h2>
+            				<p>展示您物化后的灵魂。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:getConceptsByParentId(0);">
+            				<img src="assets/img/kexuesuanming.jpg">
+            				<h2>科学算命</h2>
+            				<p>根据灵魂模型作出科学判断来进行算命。</p>
+          				</a>
+        			</li>
+        			<li>
+          				<a href="javascript:alert('健康咨询');">
+            				<img src="assets/img/shengzhang.png">
+            				<h2>健康咨询</h2>
+            				<p>灵魂驱动，密切关注您的健康状况。</p>
+          				</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+	</div>
+	
+	<!-- 灵魂查看演示页面 -->
+	<div id="page_amodel_cyble_display"  data-role="page" data-theme="c">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1 class="page_concept_name">模型展示</h1>
+    		<a href="#" data-icon="refresh">刷新</a>
+    	</div>
+    	<div data-role="content">
+    		<ul data-role="listview" data-inset="true" class="container">
+      			
+    		</ul>
+    	</div>
+	</div>
+
+<!-- 灵魂模型概念展示 -->
+	<div id="page_concept_display"  data-role="page" data-theme="c">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" class="back">返回</a>
+    		<h1 class="page_concept_name">模型展示</h1>
+    		<a href="#" data-icon="refresh">刷新</a>
+    	</div>
+    	<div data-role="content">
+    		<table class="table_for_page_concept">
+    			<caption>概念关联</caption>
+    			<thead>
+    				<tr>
+    					<th>概念</th>
+    					<th>关系</th>
+    				</tr>
+    			</thead>
+    			<tbody class="tbody" style="background:#fff;">
+    			
+    			</tbody>
+    		</table>
+    		<table class="demo_table" style="display:none">
+    			<tr class="tr_demo">
+    				<td><a class="openLink">健康</a></td>
+    				<td class="relation">包含</td>
+    			</tr>
+    		</table>
+    	</div>
+	</div>
+
+<!-- 灵魂同步页面 -->
+	<div id="page_soul_update" data-role="page" data-theme="c">
+		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>更新模型</h1>
+    		<a href="javascript:scanCode();" data-icon="search" class="ui-btn-right">扫一扫</a>
+  		</div>
+  		<div data-role="content">
+  			<div data-role="collapsible" data-collapsed="false">
+　 				<h4>应用数据更新</h4>
+				<p style="margin-top:-15px;">可以将彩云阁上应用中所产生的数据进行灵魂模型更新，主要包含根据电子病历、购物历史以及银行记录三种方式更新。</p>
+				<div style="margin-top:-10px;">
+					<table style="width:100%;text-align:center;">
+						<tr>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('app1');" data-role="button" data-theme="c">电子病历</a></td>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('app2');" data-role="button" data-theme="c">购物历史</a></td>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('app3');" data-role="button" data-theme="c">银行记录</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+  			<div data-role="collapsible">
+　 				<h4>生理数据更新</h4>
+				<p style="margin-top:-15px;">通过可穿戴式设备获取人体实时数据，根据实时生理数据更新灵魂模型。</p>
+				<a href="#" data-role="button" onclick="javascript:loadSoulUpdateDetail('body1');" data-theme="c">实时生理数据</a>
+			</div>
+			<div data-role="collapsible">
+　 				<h4>网络数据更新</h4>
+				<p style="margin-top:-15px;">获取阁主在互联网上的行为信息，诸如微博、说说等，根据所获网络信息更新灵魂模型。</p>
+				<div style="margin-top:-10px;">
+					<table style="width:100%;text-align:center;">
+						<tr>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('net1');" data-role="button" data-theme="c">微博数据</a></td>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('net2');" data-role="button" data-theme="c">qq签名</a></td>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('net3');" data-role="button" data-theme="c">百度贴吧</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div data-role="collapsible">
+　 				<h4>关联数据更新</h4>
+				<p style="margin-top:-15px;">根据与阁主有关联的亲友来获取与阁主相关的信息，根据所获信息更新灵魂模型，主要包含亲属数据关联和同类数据关联。</p>
+				<div style="margin-top:-10px;">
+					<table style="width:100%;text-align:center;">
+						<tr>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('rel1');" data-role="button" data-theme="c">亲属数据关联</a></td>
+							<td><a href="#" onclick="javascript:loadSoulUpdateDetail('rel2');" data-role="button" data-theme="c">同类数据关联</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+  		</div>
+	</div>
+
+<!-- 灵魂同步详情页面 -->
+	<div data-role="page" id="soul_update_detail" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1 class="title"></h1>
+  		</div>
+  		<div data-role="content" data-theme="c" style="text-align:center">
+    		<div class="container"></div>
+    		<a href="#" data-role="button" data-theme="c" class="update_soulModel">立即更新灵魂模型</a>
+  		</div>
+	</div>
+
+<!-- 灵魂同步详情页面ul_demo -->
+	<div id="soul_update_ul_demo" style="display:none;">	
+  		<div>
+  			<table class="demo_table_for_soul_update">
+				<tr>
+					<td style="text-align:center;">
+						<span class="name"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span style="font-weight:bold;">简介：</span><span class="description"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span style="font-weight:bold;">详情：</span><span class="details"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<span style="font-weight:bold;">日期：</span><span class="date"></span>
+					</td>
+				</tr>
+			</table>
+  		</div>
+	</div>
+
+<!-- 灵魂同步之实时健康数据 -->
+	<div data-role="page" id="realtime_health_data_for_soul_update" data-close-btn="right" data-overlay-theme="e">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>实时生理数据</h1>
+    		<div class="ui-grid-b" style="text-align:center">
+     	 		<div class="ui-block-a">
+        			<a href="#" data-role="button" data-theme="a" data-icon="refresh" data-inline="true" data-mini="true">重新采集</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<button class="show-page-loading-msg" data-theme="b" data-icon="gear" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" >系统导入</button>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#health_data_user_input" data-role="button" data-theme="c" data-icon="edit" data-inline="true" data-mini="true" >手动输入</a>
+      			</div>
+    		</div>
+  		</div>
+ 	 	<div data-role="content" data-theme="c">
+    		<div class="ui-grid-b" style="text-align:center">
+      			<div class="ui-block-a">
+        			<a href="#">
+          				<img src="assets/img/xindian.png" width="100px" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="javascript:getMindWave();">
+          				<img src="assets/img/mindwave.jpg" width="100px" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#">
+          				<img src="assets/img/saomiaoluru.png" width="100px" class="ui-li-icon 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-a">心率:86</div>
+      			<div class="ui-block-b">
+      				<div>
+	  					注意力(<span class="attention"></span>)/冥想力(<span class="meditation"></span>)
+	  				</div>
+	  			</div>
+      			<div class="ui-block-c">血压:125/84</div>
+     	 		<div class="ui-block-a">&nbsp;&nbsp;</div>
+      			<div class="ui-block-b">&nbsp;&nbsp;</div>
+      			<div class="ui-block-c">&nbsp;&nbsp;</div>
+      			<div class="ui-block-a">
+        			<a href="#bloodSugar" data-rel="popup" data-role="image" data-inline="true" >
+          				<img src="assets/img/xue-niao.png" width="100px" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-b">
+        			<a href="#">
+          				<img src="assets/img/bchao.png" width="100px" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-c">
+        			<a href="#">
+          				<img src="assets/img/jiazhuangxian.png" width="100px" class="ui-li-icon ui-corner-none 3-href-img-in-a-line">
+          			</a>
+      			</div>
+      			<div class="ui-block-a">
+        			血糖:7.3
+      			</div>
+      			<div class="ui-block-b">血脂:120mg/L</div>
+      			<div class="ui-block-c">步速:1.2m/s</div>
+    		</div>
+    		<a href="#" onclick="javascript:updateSoulWithBodyInfo();" data-role="button" data-theme="c" class="update_soulModel">立即更新灵魂模型</a>
+  		</div>
+ 	</div>
+ 	
+ 	<!-- 彩云阁工具包页面 -->
+	<div id="page_tools" data-role="page" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>发现</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="javascript:scanCode();">
+          				扫一扫
+          				<span class="ui-li-aside cem-bounded realame"></span>
+        			</a>
+      			</li>
+    		</ul>
+  		</div>
+  		
+	</div>
+
+<!-- 彩云阁设置页面 -->
+	<div id="page_setting" data-role="page" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<h1>设置</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="#page_ps">
+          				个人中心
+          				<span class="ui-li-aside cem-bounded realame">点击查看</span>
+        			</a>
+      			</li>
+      			<li>
+       		 		<a href="#">
+          				匹配
+          				<span class="ui-li-aside cem-gray">
+            				<select name="flip_mapping" id="flip_mapping" data-role="slider" data-mini="true" onchange="modifyMappingSetting();">
+              					<option value="1">关闭</option>
+              					<option value="2" selected="true">启用</option>
+            				</select>
+          				</span>
+        			</a>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="#page_set_general">常规</a>
+      			</li>
+      			<li>
+        			<a href="#page_set_plugin">应用</a>
+      			</li>
+      			<li>
+        			<a href="#page_set_pri">隐私</a>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="javascript:clearAllUsedInfo();">消除使用信息</a>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true" data-theme="b">
+      			<li>
+        			<a href="#page_login">退出</a>
+      			</li>
+   	 		</ul>
+  		</div>
+  		<div data-role="footer" data-position="fixed" data-id="fixedFooterNav">
+    		<div data-role="navbar">
+      			<ul>
+        			<li>
+          				<a href="#page_buy" data-icon="grid">服务市场</a>
+        			</li>
+        			<li>
+          				<a href="#page_setting"  class="ui-btn-active ui-state-persist" data-icon="gear">设置</a>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+	</div>
+	
+<!-- 个人中心页面 -->
+	<div id="page_ps" data-role="page" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+   	 		<h1>属性</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="#choosePicPop" data-rel="popup" data-transition="none">
+          				个性头像
+          				<span class="ui-li-aside cem-bounded">
+            				<img id="avata-image" src="assets/img/21-skull.png" class="ui-li-icon-right"/>
+          				</span>
+        			</a>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="javascript:modifyUserInfo('name');">
+          				姓名
+          				<span class="ui-li-aside cem-gray realname"></span>
+       			 	</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('mobile');">
+          				联系电话
+          				<span class="ui-li-aside cem-gray mobile"></span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('email');">
+          				邮箱
+          				<span class="ui-li-aside cem-gray email"></span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="#">
+          				性别
+          				<span class="ui-li-aside cem-gray">
+            				<select name="flip_gender" id="flip_gender" data-role="slider" data-mini="true" onchange="modifyUserGender();">
+              					<option value="1">男</option>
+              					<option value="2">女</option>
+            				</select>
+          				</span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('age');">
+          				年龄
+          				<span class="ui-li-aside cem-gray age">21</span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('address');">
+          				地址
+          				<span class="ui-li-aside cem-gray address">上海浦东</span>
+        			</a>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="javascript:modifyUserInfo('degree');">
+          				学历
+          				<span class="ui-li-aside cem-gray degree">硕士</span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('zongjiao');">
+          				宗教
+          				<span class="ui-li-aside cem-gray zongjiao">无</span>
+        			</a>
+      			</li>
+      			<li>
+        			<a href="javascript:modifyUserInfo('interest');">
+          				<h2>兴趣</h2>
+          				<p class="cem-gray interest">篮球、看电影</p>
+        			</a>
+      			</li>
+   	 		</ul>
+    		
+  		</div>
+  		<div data-role="panel" id="choosePicPop" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0" data-position="right" data-display="reveal">
+   			<button data-theme="a" data-icon="grid" onclick="takePic()" style="height:100px;">拍摄照片</button>
+    		<button data-theme="a" data-icon="search" onclick="getPicFromPhone()">选择本地图片</button>
+  		</div>
+	</div>
+	
+<!-- 修改姓名 -->
+	<div id="page_edit_property" data-role="dialog" data-theme="c">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    			<h1 class="title"></h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<input type="text" class="value" name="name" />
+    		<span class="description"></span>
+    		<a href="#" data-role="button" class="save" data-theme="b">保存</a>
+  		</div>
+	</div>
+	
+<!-- 常规设置 -->
+	<div data-role="page" id="page_set_general" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>常规</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">通知</li>
+      			<li>
+        			<h2>接受通知</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>声音</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news_sound" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>振动</h2>
+       		 		<span class="ui-li-aside">
+          				<select name="flip_rev_news_vib" id="flip_rev_news_vib" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">使用</li>
+      			<li>
+        			<h2>美化</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+           			 		<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<a href="#">
+          				<h2>字体大小</h2>
+          				<span class="ui-li-aside cem-gray">正常</span>
+        			</a>
+      			</li>
+      			<li>
+        			<h2>夜间模式</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news"  data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+	
+<!-- 相关服务插件设置 -->
+	<div data-role="page" id="page_set_plugin"  data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>应用</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">可用应用</li>
+      			<li>
+        			<h2>支付服务</h2>
+        			<p>
+         	 			提供
+          				<a href="http://www.alipay.com/">支付宝</a>
+        			</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news"  data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+         	 			</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>服务验证</h2>
+        			<p>
+          				提供
+          				<a href="http://www.ebchina.org.cn/">可信平台</a>
+        			</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>旅行搜索</h2>
+        			<p>
+          				提供
+          				<a href="http://www.travelhub.cn/">旅游集散网</a>
+        			</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news_sound" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>物流搜索</h2>
+        			<p>
+         			 	提供
+          				<a href="http://www.ebchina.org.cn/">IOEB@fudan</a>
+        			</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news_sound" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+         		 		</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>电商搜索</h2>
+        			<p>
+          				提供
+          				<a href="http://www.ebchina.org.cn/">IOEB@fudan</a>
+        			</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news_sound" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li>
+        			<a href="#">获得更多应用</a>
+      			</li>
+      			<li>
+        			<a href="#">我想开发</a>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+	
+<!-- 隐私保护设置 -->
+	<div data-role="page" id="page_set_pri" data-theme="b">
+  		<div data-role="header" data-position="fixed" data-id="fixedHeaderNav">
+    		<a href="#" data-icon="back" data-rel="back">返回</a>
+    		<h1>隐私</h1>
+  		</div>
+  		<div data-role="content" data-theme="c">
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">朋友</li>
+      			<li>
+       	 			<h2>通过手机号码</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>通过彩云阁ID</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>推荐给我的联系人</h2>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+    		</ul>
+    		<ul data-role="listview" data-inset="true">
+      			<li data-role="list-divider">Resources</li>
+      			<li>
+        			<h2>读取通讯录</h2>
+        			<p>彩云阁通过协同推荐提供个性化服务</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>获取位置</h2>
+        			<p>彩云阁提供基础定位服务</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+      			<li>
+        			<h2>获取应用记录</h2>
+        			<p>彩云阁通过手机应用使用情况提供个性化服务</p>
+        			<span class="ui-li-aside">
+          				<select name="flip_rev_news" data-role="slider" data-mini="true">
+            				<option value="1">开</option>
+            				<option value="2">关</option>
+          				</select>
+        			</span>
+      			</li>
+    		</ul>
+  		</div>
+	</div>
+	
+	
+</body>
+</html>

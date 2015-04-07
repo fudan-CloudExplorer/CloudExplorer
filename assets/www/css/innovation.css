@@ -1,0 +1,54 @@
+div#innovation_customer_competition div.innovation_customer_competition_item {
+  overflow: auto;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item img {
+  float: left;
+  width: 25%;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item div.innovation_customer_competition_des {
+  float: left;
+  width: 75%;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item div.innovation_customer_competition_des div.innovation_customer_competition_des_title {
+  overflow: auto;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item div.innovation_customer_competition_des div.innovation_customer_competition_des_title span.innovation_customer_competition_des_title_name {
+  float: left;
+  font-weight: bold;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item div.innovation_customer_competition_des div.innovation_customer_competition_des_title span.innovation_customer_competition_des_title_prize {
+  float: right;
+  color: red;
+}
+div#innovation_customer_competition div.innovation_customer_competition_item div.innovation_customer_competition_des div.innovation_customer_competition_des_info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div#innovator_my_innovations div.innovation_item {
+  overflow: auto;
+}
+div#innovator_my_innovations div.innovation_item img {
+  float: left;
+  width: 25%;
+}
+div#innovator_my_innovations div.innovation_item div.innovation_des {
+  float: left;
+  width: 75%;
+}
+div#innovator_my_innovations div.innovation_item div.innovation_des div.innovation_des_title {
+  overflow: auto;
+}
+div#innovator_my_innovations div.innovation_item div.innovation_des div.innovation_des_title span.innovation_des_title_name {
+  float: left;
+  font-weight: bold;
+}
+div#innovator_my_innovations div.innovation_item div.innovation_des div.innovation_des_title span.innovation_des_title_prize {
+  float: right;
+  color: red;
+}
+div#innovator_my_innovations div.innovation_item div.innovation_des div.innovation_des_info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
