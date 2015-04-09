@@ -1,2 +1,2 @@
 # CloudExplorer
-Next-generation e-commerce platform.
+Next-generation e-commerce platform. 
